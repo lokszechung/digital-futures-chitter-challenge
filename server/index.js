@@ -1,5 +1,6 @@
 import express from "express";
 import { config } from "dotenv";
+import cors from "cors";
 import { connectToDb } from "./db/connection.js";
 
 import { router as peepsRouter } from "./routes/peeps.routes.js";
@@ -9,8 +10,12 @@ config({path: `.env.${process.env.NODE_ENV}`})
 
 const app = express();
 
-app.use("/peeps", peepsRouter);
-app.use("/users", usersRouter);
+app.use(express.json())
+
+app.use(cors())
+
+app.use("/peep", peepsRouter);
+app.use("/user", usersRouter);
 
 try {
   console.log(`⏳Connecting to database @ ${process.env.DB_URI}`);
@@ -21,5 +26,6 @@ catch (e) {
   console.error(e);
 }
 
-app.listen(process.env.PORT, console.log(`🚀Server running on port ${process.env.PORT}`))
+const server = app.listen(process.env.PORT, console.log(`🚀Server running on port ${process.env.PORT}`));
 
+export default server;
