@@ -50,7 +50,7 @@ describe("Integration Tests on requests to the /user route", () => {
         firstname: "Bobert",
         lastname: "Bobson",
         username: "bobertbobson",
-        email: "lschung@hotmail.co.uk",
+        email: "testemail@test.com",
         password: "password123",
         passwordConfirmation: "password123"
       };
@@ -69,7 +69,7 @@ describe("Integration Tests on requests to the /user route", () => {
       const testUser = {
         firstname: "Bobert",
         lastname: "Bobson",
-        username: "loksze",
+        username: "testusername",
         email: "bbobson@hotmail.com",
         password: "password123",
         passwordConfirmation: "password123"
@@ -107,5 +107,64 @@ describe("Integration Tests on requests to the /user route", () => {
 
   });
 
+  describe("POST requests to /user/login", () => { 
+
+    it("Should return a token when a user logs in with username", async () => {
+      const testLogin = {
+        usernameOrEmail: "testusername",
+        password: "123",
+      };
+
+      const response = await request(server)
+        .post(`${testRouteBase}/login`)
+        .send(testLogin);
+
+      expect(response).to.have.status(200);
+      expect(response.body).to.have.property("token").not.null;
+    });
+
+    it("Should return a token when a user logs in with username", async () => {
+      const testLogin = {
+        usernameOrEmail: "testemail@test.com",
+        password: "123",
+      };
+
+      const response = await request(server)
+        .post(`${testRouteBase}/login`)
+        .send(testLogin);
+
+      expect(response).to.have.status(200);
+      expect(response.body).to.have.property("token").not.null;
+    });
+
+    it("Should return an error message when a user logs in with incorrect usernameOrEmail", async () => {
+      const testLogin = {
+        usernameOrEmail: "noone",
+        password: "123",
+      };
+
+      const response = await request(server)
+        .post(`${testRouteBase}/login`)
+        .send(testLogin);
+
+        expect(response).to.have.status(401);
+        expect(response.text).to.eql(`{"message":"Invalid email or password"}`);
+    });
+
+    it("Should return an error message when a user logs in with incorrect password", async () => {
+      const testLogin = {
+        usernameOrEmail: "testemail@test.com",
+        password: "wrong",
+      };
+
+      const response = await request(server)
+        .post(`${testRouteBase}/login`)
+        .send(testLogin);
+
+        expect(response).to.have.status(401);
+        expect(response.text).to.eql(`{"message":"Invalid email or password"}`);
+    });
+
+  });
 
 });
