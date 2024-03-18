@@ -1,12 +1,15 @@
 import * as chai from "chai";
 import { expect } from "chai";
 import chaiHttp from "chai-http";
+import supertest from "supertest";
 
-const { request } = chai.use(chaiHttp);
-
-import User from "../models/user.model.js";
 import server from "../index.js";
+import User from "../models/user.model.js";
 import testUsersArray from "./data/testUsersArray.js";
+
+chai.use(chaiHttp);
+
+const request = supertest(server);
 
 describe("Integration Tests on requests to the /user route", () => {
 	const testRouteBase = "/user";
@@ -20,6 +23,10 @@ describe("Integration Tests on requests to the /user route", () => {
 		}
 	});
 
+	// afterEach(function () {
+	// 	request = undefined;
+	// });
+
 	describe("POST requests to /user/register", () => {
 		it("Should add a properly formatted user to the database", async () => {
 			const testUser = {
@@ -31,7 +38,7 @@ describe("Integration Tests on requests to the /user route", () => {
 				passwordConfirmation: "password123",
 			};
 
-			const response = await request(server)
+			const response = await request
 				.post(`${testRouteBase}/register`)
 				.send(testUser);
 
@@ -51,7 +58,7 @@ describe("Integration Tests on requests to the /user route", () => {
 				passwordConfirmation: "password123",
 			};
 
-			const response = await request(server)
+			const response = await request
 				.post(`${testRouteBase}/register`)
 				.send(testUser);
 
@@ -71,7 +78,7 @@ describe("Integration Tests on requests to the /user route", () => {
 				passwordConfirmation: "password123",
 			};
 
-			const response = await request(server)
+			const response = await request
 				.post(`${testRouteBase}/register`)
 				.send(testUser);
 
@@ -91,7 +98,7 @@ describe("Integration Tests on requests to the /user route", () => {
 				passwordConfirmation: "4321secret",
 			};
 
-			const response = await request(server)
+			const response = await request
 				.post(`${testRouteBase}/register`)
 				.send(testUser);
 
@@ -109,7 +116,7 @@ describe("Integration Tests on requests to the /user route", () => {
 				password: "123",
 			};
 
-			const response = await request(server)
+			const response = await request
 				.post(`${testRouteBase}/login`)
 				.send(testLogin);
 
@@ -123,7 +130,7 @@ describe("Integration Tests on requests to the /user route", () => {
 				password: "123",
 			};
 
-			const response = await request(server)
+			const response = await request
 				.post(`${testRouteBase}/login`)
 				.send(testLogin);
 
@@ -137,7 +144,7 @@ describe("Integration Tests on requests to the /user route", () => {
 				password: "123",
 			};
 
-			const response = await request(server)
+			const response = await request
 				.post(`${testRouteBase}/login`)
 				.send(testLogin);
 
@@ -151,7 +158,7 @@ describe("Integration Tests on requests to the /user route", () => {
 				password: "wrong",
 			};
 
-			const response = await request(server)
+			const response = await request
 				.post(`${testRouteBase}/login`)
 				.send(testLogin);
 

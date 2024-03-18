@@ -1,22 +1,25 @@
 import * as chai from "chai";
 import { expect } from "chai";
 import chaiHttp from "chai-http";
-
-const { request } = chai.use(chaiHttp);
-
+import supertest from "supertest";
 import sinon from "sinon";
+
 import jwt from "jsonwebtoken";
 
 import { config } from "dotenv";
 
-config({ path: `.env.${process.env.NODE_ENV}` });
-
+import server from "../index.js";
 import Peep from "../models/peep.model.js";
 import User from "../models/user.model.js";
-import server from "../index.js";
 import testPeepsArray from "./data/testPeepsArray.js";
 
-describe("Integration Tests on requests to the /user route", () => {
+chai.use(chaiHttp);
+
+const request = supertest(server);
+
+config({ path: `.env.${process.env.NODE_ENV}` });
+
+describe("Integration Tests on requests to the /peep route", () => {
 	const testRouteBase = "/peep";
 
 	let findByIdStub;
@@ -57,7 +60,7 @@ describe("Integration Tests on requests to the /user route", () => {
 				content: "This is a test peep",
 			};
 
-			const response = await request(server)
+			const response = await request
 				.post(`${testRouteBase}`)
 				.set("Authorization", `Bearer ${token}`)
 				.send(testPeep);
@@ -72,9 +75,7 @@ describe("Integration Tests on requests to the /user route", () => {
 				content: "This is a test peep",
 			};
 
-			const response = await request(server)
-				.post(`${testRouteBase}`)
-				.send(testPeep);
+			const response = await request.post(`${testRouteBase}`).send(testPeep);
 
 			expect(response).to.have.status(401);
 			expect(response.text).to.eql(`{"message":"Missing headers"}`);
@@ -98,7 +99,7 @@ describe("Integration Tests on requests to the /user route", () => {
 
 			const testPeep = { content: "" };
 
-			const response = await request(server)
+			const response = await request
 				.post(`${testRouteBase}`)
 				.set("Authorization", `Bearer ${token}`)
 				.send(testPeep);
@@ -107,6 +108,16 @@ describe("Integration Tests on requests to the /user route", () => {
 			expect(response.text).to.eql(
 				`{"message":"Peep content cannot be empty"}`
 			);
+		});
+	});
+
+	describe("GET requests to /peep", () => {
+		it("Should return all peeps in the database", async () => {
+			const response = await request.get(`${testRouteBase}`);
+
+			expect(response).to.have.status(200);
+			expect(response.body).to.be.an("array");
+			expect(response.body.length).to.eql(testPeepsArray.length);
 		});
 	});
 });

@@ -1,7 +1,8 @@
-import Peep from '../../models/peep.model.js'
+import Peep from "../../models/peep.model.js";
 
-export const getAllPeepsService = async (_req, res) => {
-  // const peeps = await Peep.find()
-  // return res.json(peeps)
-  // return res.end("getting peeps")
-}
+export const getAllPeepsService = {
+	getAllPeeps: async () => {
+		const peeps = await Peep.find();
+		return peeps;
+	},
+};
