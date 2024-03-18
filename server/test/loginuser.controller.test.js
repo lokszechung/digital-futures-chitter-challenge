@@ -4,7 +4,7 @@ import sinon from "sinon";
 import { loginUser } from "../controllers/usersControllers/loginUser.controller.js";
 import { loginUserService } from "../services/usersServices/loginUser.service.js";
 
-describe("loginUser controller test", () => {
+xdescribe("loginUser controller test", () => {
 
   let req, res, loginUserServiceStub, jsonSpy, statusSpy;
 

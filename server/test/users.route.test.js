@@ -9,162 +9,154 @@ import server from "../index.js";
 import testUsersArray from "./data/testUsersArray.js";
 
 describe("Integration Tests on requests to the /user route", () => {
+	const testRouteBase = "/user";
 
-  const testRouteBase = "/user";
+	beforeEach(async () => {
+		try {
+			await User.deleteMany();
+			await User.insertMany(testUsersArray);
+		} catch (error) {
+			console.log(error);
+		}
+	});
 
-  beforeEach(async () => {
-    try {
-      await User.deleteMany();
-      await User.insertMany(testUsersArray);
-    } catch (error) {
-      console.log(error); 
-    }
-  }); 
+	describe("POST requests to /user/register", () => {
+		it("Should add a properly formatted user to the database", async () => {
+			const testUser = {
+				firstname: "Bobert",
+				lastname: "Bobson",
+				username: "bobertbobson",
+				email: "bbobson@hotmail.com",
+				password: "password123",
+				passwordConfirmation: "password123",
+			};
 
-  describe("POST requests to /user/register", () => {
+			const response = await request(server)
+				.post(`${testRouteBase}/register`)
+				.send(testUser);
 
-    it("Should add a properly formatted user to the database", async () => {
+			expect(response).to.have.status(201);
+			expect(response.body).to.have.property("_id");
+			expect(response.body.firstname).to.eql(testUser.firstname);
+			expect(response.body.username).to.eql(testUser.username);
+		});
 
-      const testUser = {
-        firstname: "Bobert",
-        lastname: "Bobson",
-        username: "bobertbobson",
-        email: "bbobson@hotmail.com",
-        password: "password123",
-        passwordConfirmation: "password123"
-      };
+		it("Should not allow registration when email is duplicated", async () => {
+			const testUser = {
+				firstname: "Bobert",
+				lastname: "Bobson",
+				username: "bobertbobson",
+				email: "testemail@test.com",
+				password: "password123",
+				passwordConfirmation: "password123",
+			};
 
-      const response = await request(server)
-        .post(`${testRouteBase}/register`)
-        .send(testUser);
+			const response = await request(server)
+				.post(`${testRouteBase}/register`)
+				.send(testUser);
 
-      expect(response).to.have.status(201);
-      expect(response.body).to.have.property("_id");
-      expect(response.body.firstname).to.eql(testUser.firstname);
-      expect(response.body.username).to.eql(testUser.username);
-    })
+			expect(response).to.have.status(400);
+			expect(response.text).to.eql(
+				`{"message":"This email is already in use"}`
+			);
+		});
 
-    it("Should not allow registration when email is duplicated", async () => {
+		it("Should not allow registration when username is duplicated", async () => {
+			const testUser = {
+				firstname: "Bobert",
+				lastname: "Bobson",
+				username: "testusername",
+				email: "bbobson@hotmail.com",
+				password: "password123",
+				passwordConfirmation: "password123",
+			};
 
-      const testUser = {
-        firstname: "Bobert",
-        lastname: "Bobson",
-        username: "bobertbobson",
-        email: "testemail@test.com",
-        password: "password123",
-        passwordConfirmation: "password123"
-      };
+			const response = await request(server)
+				.post(`${testRouteBase}/register`)
+				.send(testUser);
 
-      const response = await request(server)
-        .post(`${testRouteBase}/register`)
-        .send(testUser);
+			expect(response).to.have.status(400);
+			expect(response.text).to.eql(
+				`{"message":"This username is already in use"}`
+			);
+		});
 
-      expect(response).to.have.status(400);
-      expect(response.text).to.eql(`{"message":"This email is already in use"}`);
- 
-    })
+		it("Should not allow registration when passwords do not match", async () => {
+			const testUser = {
+				firstname: "Bobert",
+				lastname: "Bobson",
+				username: "loksze",
+				email: "bbobson@hotmail.com",
+				password: "password123",
+				passwordConfirmation: "4321secret",
+			};
 
-    it("Should not allow registration when username is duplicated", async () => {
+			const response = await request(server)
+				.post(`${testRouteBase}/register`)
+				.send(testUser);
 
-      const testUser = {
-        firstname: "Bobert",
-        lastname: "Bobson",
-        username: "testusername",
-        email: "bbobson@hotmail.com",
-        password: "password123",
-        passwordConfirmation: "password123"
-      };
+			expect(response).to.have.status(422);
+			expect(response.text).to.eql(
+				`{"message":"User validation failed: passwordConfirmation: Passwords do not match"}`
+			);
+		});
+	});
 
-      const response = await request(server)
-        .post(`${testRouteBase}/register`)
-        .send(testUser);
+	describe("POST requests to /user/login", () => {
+		it("Should return a token when a user logs in with username", async () => {
+			const testLogin = {
+				usernameOrEmail: "testusername",
+				password: "123",
+			};
 
-      expect(response).to.have.status(400);
-      expect(response.text).to.eql(`{"message":"This username is already in use"}`);
- 
-    })
+			const response = await request(server)
+				.post(`${testRouteBase}/login`)
+				.send(testLogin);
 
-    it("Should not allow registration when passwords do not match", async () => {
+			expect(response).to.have.status(200);
+			expect(response.body).to.have.property("token").not.null;
+		});
 
-      const testUser = {
-        firstname: "Bobert",
-        lastname: "Bobson",
-        username: "loksze",
-        email: "bbobson@hotmail.com",
-        password: "password123",
-        passwordConfirmation: "4321secret"
-      };
+		it("Should return a token when a user logs in with username", async () => {
+			const testLogin = {
+				usernameOrEmail: "testemail@test.com",
+				password: "123",
+			};
 
-      const response = await request(server)
-        .post(`${testRouteBase}/register`)
-        .send(testUser);
+			const response = await request(server)
+				.post(`${testRouteBase}/login`)
+				.send(testLogin);
 
-      expect(response).to.have.status(422);
-      expect(response.text).to.eql(`{"message":"User validation failed: passwordConfirmation: Passwords do not match"}`);
- 
-    })
+			expect(response).to.have.status(200);
+			expect(response.body).to.have.property("token").not.null;
+		});
 
+		it("Should return an error message when a user logs in with incorrect usernameOrEmail", async () => {
+			const testLogin = {
+				usernameOrEmail: "noone",
+				password: "123",
+			};
 
-  });
+			const response = await request(server)
+				.post(`${testRouteBase}/login`)
+				.send(testLogin);
 
-  describe("POST requests to /user/login", () => { 
+			expect(response).to.have.status(401);
+			expect(response.text).to.eql(`{"message":"Invalid email or password"}`);
+		});
 
-    it("Should return a token when a user logs in with username", async () => {
-      const testLogin = {
-        usernameOrEmail: "testusername",
-        password: "123",
-      };
+		it("Should return an error message when a user logs in with incorrect password", async () => {
+			const testLogin = {
+				usernameOrEmail: "testemail@test.com",
+				password: "wrong",
+			};
 
-      const response = await request(server)
-        .post(`${testRouteBase}/login`)
-        .send(testLogin);
+			const response = await request(server)
+				.post(`${testRouteBase}/login`)
+				.send(testLogin);
 
-      expect(response).to.have.status(200);
-      expect(response.body).to.have.property("token").not.null;
-    });
-
-    it("Should return a token when a user logs in with username", async () => {
-      const testLogin = {
-        usernameOrEmail: "testemail@test.com",
-        password: "123",
-      };
-
-      const response = await request(server)
-        .post(`${testRouteBase}/login`)
-        .send(testLogin);
-
-      expect(response).to.have.status(200);
-      expect(response.body).to.have.property("token").not.null;
-    });
-
-    it("Should return an error message when a user logs in with incorrect usernameOrEmail", async () => {
-      const testLogin = {
-        usernameOrEmail: "noone",
-        password: "123",
-      };
-
-      const response = await request(server)
-        .post(`${testRouteBase}/login`)
-        .send(testLogin);
-
-        expect(response).to.have.status(401);
-        expect(response.text).to.eql(`{"message":"Invalid email or password"}`);
-    });
-
-    it("Should return an error message when a user logs in with incorrect password", async () => {
-      const testLogin = {
-        usernameOrEmail: "testemail@test.com",
-        password: "wrong",
-      };
-
-      const response = await request(server)
-        .post(`${testRouteBase}/login`)
-        .send(testLogin);
-
-        expect(response).to.have.status(401);
-        expect(response.text).to.eql(`{"message":"Invalid email or password"}`);
-    });
-
-  });
-
+			expect(response).to.have.status(401);
+			expect(response.text).to.eql(`{"message":"Invalid email or password"}`);
+		});
+	});
 });
