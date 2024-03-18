@@ -23,10 +23,6 @@ describe("Integration Tests on requests to the /user route", () => {
 		}
 	});
 
-	// afterEach(function () {
-	// 	request = undefined;
-	// });
-
 	describe("POST requests to /user/register", () => {
 		it("Should add a properly formatted user to the database", async () => {
 			const testUser = {

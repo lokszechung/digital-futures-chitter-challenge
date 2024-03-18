@@ -6,26 +6,28 @@ import { connectToDb } from "./db/connection.js";
 import { router as peepsRouter } from "./routes/peeps.routes.js";
 import { router as usersRouter } from "./routes/users.route.js";
 
-config({path: `.env.${process.env.NODE_ENV}`})
+config({ path: `.env.${process.env.NODE_ENV}` });
 
 const app = express();
 
-app.use(express.json())
+app.use(express.json());
 
-app.use(cors())
+app.use(cors());
 
 app.use("/peep", peepsRouter);
 app.use("/user", usersRouter);
 
 try {
-  console.log(`⏳Connecting to database @ ${process.env.DB_URI}`);
-  await connectToDb(process.env.DB_URI);
-  console.log(`🔗Connected to database @ ${process.env.DB_URI}`);
-}
-catch (e) {
-  console.error(e);
+	console.log(`⏳Connecting to database @ ${process.env.DB_URI}`);
+	await connectToDb(process.env.DB_URI);
+	console.log(`🔗Connected to database @ ${process.env.DB_URI}`);
+} catch (e) {
+	console.error(e);
 }
 
-const server = app.listen(process.env.PORT, console.log(`🚀Server running on port ${process.env.PORT}`));
+const server = app.listen(
+	process.env.PORT,
+	console.log(`🚀Server running on port ${process.env.PORT}`)
+);
 
 export default server;
