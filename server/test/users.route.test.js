@@ -162,4 +162,29 @@ describe("Integration Tests on requests to the /user route", () => {
 			expect(response.text).to.eql(`{"message":"Invalid email or password"}`);
 		});
 	});
+
+	describe("GET requests to /user/:id", () => {
+		it("Should return a user when a valid id is provided", async () => {
+			const testUser = testUsersArray[0];
+
+			const response = await request.get(`${testRouteBase}/${testUser._id}`);
+
+			expect(response).to.have.status(200);
+			expect(response.body).to.have.property("_id").eql(testUser._id);
+			expect(response.body)
+				.to.have.property("firstname")
+				.eql(testUser.firstname);
+			expect(response.body).to.have.property("lastname").eql(testUser.lastname);
+			expect(response.body).to.have.property("username").eql(testUser.username);
+		});
+
+		it("Should return status 404 when an invalid id is provided", async () => {
+			const testId = "noSuchId";
+
+			const response = await request.get(`${testRouteBase}/${testId}`);
+
+			expect(response).to.have.status(404);
+			expect(response.text).to.eql(`{"message":"User not found"}`);
+		});
+	});
 });
