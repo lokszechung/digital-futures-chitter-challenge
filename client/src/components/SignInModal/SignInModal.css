@@ -1,0 +1,16 @@
+.modal-backdrop {
+  z-index: 0 !important;
+}
+
+.modal-nav-item{
+  flex-grow: 1;
+}
+
+.modal-nav-link{
+  width: 100%;
+}
+
+.nav-link.modal-nav-link:not(.active) {
+  background-color: #cdcdcd;
+  color: rgb(235, 235, 235);
+}

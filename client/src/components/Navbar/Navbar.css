@@ -1,0 +1,9 @@
+.navbar{
+  background-color: #17D1AB;
+  height: 80px;
+  /* z-index: -2; */
+}
+
+.chitter{
+  color: white;
+}

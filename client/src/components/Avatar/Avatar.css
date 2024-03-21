@@ -1,0 +1,14 @@
+.avatar-container{
+  height: 30px;
+  aspect-ratio: 1/1;
+  background-color: coral;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.avatar-name{
+  color: white;
+  /* text-align: center; */
+}

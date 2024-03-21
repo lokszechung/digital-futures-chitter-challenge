@@ -1,0 +1,31 @@
+.sign-in{
+  background: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border: 1px solid white;
+  border-radius: 50px;
+  height: 42px;
+  width: 105px;
+}
+
+.sign-in:hover{
+  border: 1px solid white;
+  color: white;
+  background-color: rgba(255,255,255,0.3);
+}
+
+/* .sign-in:target{
+  border: 1px solid white;
+  color: white;
+  background-color: rgba(255,255,255,0.4);
+} */
+
+.sign-in-icon{
+  margin-right: 5px;
+  pointer-events: none; 
+  display: inherit; 
+  /* width: 50%; 
+  height: 50%; */
+}
