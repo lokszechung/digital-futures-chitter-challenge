@@ -14,7 +14,7 @@ const testUsersArray = [
 	},
 	{
 		_id: "65f32bbbce14d71c5a38f1b5",
-		firstname: "TestBoy",
+		firstname: "ATestBoy",
 		lastname: "Tester",
 		username: "testboy1",
 		email: "testboy1@test.com",

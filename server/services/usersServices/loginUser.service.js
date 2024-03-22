@@ -21,12 +21,14 @@ export const loginUserService = {
 
 		const payload = {
 			sub: user._id,
-			username: user.username,
+			firstname: user.firstname,
+			lastname: user.lastname,
 		};
 
 		const token = jwt.sign(payload, process.env.SECRET, {
-			expiresIn: "7 days",
+			expiresIn: "1h",
 		});
+
 		return { user, token };
 	},
 };

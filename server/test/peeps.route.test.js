@@ -20,7 +20,7 @@ const request = supertest(server);
 config({ path: `.env.${process.env.NODE_ENV}` });
 
 describe("Integration Tests on requests to the /peep route", () => {
-	const testRouteBase = "/peep";
+	const testRouteBase = "/api/peep";
 
 	let findByIdStub;
 
@@ -39,7 +39,7 @@ describe("Integration Tests on requests to the /peep route", () => {
 		findByIdStub.restore();
 	});
 
-	describe("POST requests to /peep", () => {
+	describe("POST requests to /api/peep", () => {
 		it("Should add a properly formatted peep to the database", async () => {
 			const testId = "5f7d182b0621f63b943bfa3f";
 			const testUsername = "testusername";
@@ -111,7 +111,7 @@ describe("Integration Tests on requests to the /peep route", () => {
 		});
 	});
 
-	describe("GET requests to /peep", () => {
+	describe("GET requests to /api/peep", () => {
 		it("Should return all peeps in the database", async () => {
 			const response = await request.get(`${testRouteBase}`);
 

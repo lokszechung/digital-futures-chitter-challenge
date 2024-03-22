@@ -43,11 +43,16 @@ describe("registerUser controller test", () => {
 			},
 		];
 
-		registerUserServiceStub.returns(Promise.resolve(testUser));
+		const testToken = "testToken";
+
+		registerUserServiceStub.returns(
+			Promise.resolve({ user: testUser, token: testToken })
+		);
 
 		await registerUser(req, res);
 
-		expect(jsonSpy.calledOnceWith(testUser)).to.be.true;
+		expect(jsonSpy.calledOnceWith({ user: testUser, token: testToken })).to.be
+			.true;
 		expect(statusSpy.calledOnceWith(201)).to.be.true;
 	});
 });

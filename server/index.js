@@ -1,4 +1,5 @@
 import express from "express";
+import cookieParser from "cookie-parser";
 import { config } from "dotenv";
 import cors from "cors";
 import { connectToDb } from "./db/connection.js";
@@ -14,12 +15,14 @@ app.use(express.json());
 
 app.use(cors({ origin: "*" }));
 
+app.use(cookieParser());
+
 app.use((req, res, next) => {
 	console.log(`Request recieved: ${req.method} - ${req.url}`);
 	next();
 });
-app.use("/peep", peepsRouter);
-app.use("/user", usersRouter);
+app.use("/api/peep", peepsRouter);
+app.use("/api/user", usersRouter);
 
 try {
 	console.log(`⏳Connecting to database @ ${process.env.DB_URI}`);
