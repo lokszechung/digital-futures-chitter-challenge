@@ -17,10 +17,10 @@ app.use(cors({ origin: "*" }));
 
 app.use(cookieParser());
 
-app.use((req, res, next) => {
-	console.log(`Request recieved: ${req.method} - ${req.url}`);
-	next();
-});
+// app.use((req, res, next) => {
+// 	console.log(`Request recieved: ${req.method} - ${req.url}`);
+// 	next();
+// });
 app.use("/api/peep", peepsRouter);
 app.use("/api/user", usersRouter);
 

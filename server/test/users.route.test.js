@@ -38,11 +38,10 @@ describe("Integration Tests on requests to the /user route", () => {
 				.post(`${testRouteBase}/register`)
 				.send(testUser);
 
-			console.log(response.body);
 			expect(response).to.have.status(201);
-			// expect(response.body.user).to.have.property("_id");
-			// expect(response.body.user.firstname).to.eql(testUser.firstname);
-			// expect(response.body.user.username).to.eql(testUser.username);
+			expect(response.body.user).to.have.property("_id");
+			expect(response.body.user.firstname).to.eql(testUser.firstname);
+			expect(response.body.user.username).to.eql(testUser.username);
 		});
 
 		it("Should not allow registration when email is duplicated", async () => {
@@ -99,10 +98,8 @@ describe("Integration Tests on requests to the /user route", () => {
 				.post(`${testRouteBase}/register`)
 				.send(testUser);
 
-			expect(response).to.have.status(422);
-			expect(response.text).to.eql(
-				`{"message":"User validation failed: passwordConfirmation: Passwords do not match"}`
-			);
+			expect(response).to.have.status(400);
+			expect(response.text).to.eql(`{"message":"Passwords do not match"}`);
 		});
 	});
 
