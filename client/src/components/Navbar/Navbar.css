@@ -1,9 +1,35 @@
 .navbar{
   background-color: #17D1AB;
   height: 80px;
-  /* z-index: -2; */
+  display: flex;
+  justify-content: center;
 }
 
 .chitter{
   color: white;
+  margin-left: 30px;
+  margin-bottom: 0;
+
+  @media (min-width: 576px) {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-left: 0;
+  }
+}
+
+.navbar-container {
+  position: relative;
+}
+
+.navbar-brand {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.navbar-actions {
+  margin-right: 30px;
+  display: flex;
+  align-items: center;
 }

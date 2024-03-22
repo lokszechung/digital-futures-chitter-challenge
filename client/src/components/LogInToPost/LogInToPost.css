@@ -5,8 +5,8 @@
   padding: 10px;
   border: 1px solid #17d1ac41;
   border-top: none;
-}
-
-.log-in-to-post-text{
-  text-align: center;
+  height: 130.587px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

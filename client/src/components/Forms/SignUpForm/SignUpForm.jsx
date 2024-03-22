@@ -1,11 +1,13 @@
 import axios from "axios";
 
-import { useEffect, useState } from "react";
+import { useRef, useState } from "react";
 import { setToken, isAuthenticated } from "../../../utils/auth";
 
 import "./SignUpForm.css";
 
 const SignUpForm = ({ handleCloseModal, setAuthenticated }) => {
+	// const formRef = useRef(null);
+
 	const [formFields, setFormFields] = useState({
 		firstname: "",
 		lastname: "",
@@ -17,12 +19,31 @@ const SignUpForm = ({ handleCloseModal, setAuthenticated }) => {
 	const [error, setError] = useState("");
 
 	const handleInputChange = (e) => {
+		setError("");
 		setFormFields({ ...formFields, [e.target.name]: e.target.value });
 	};
+
+	// const findEmptyFormFields = () => {
+	// 	let emptyFields = "";
+	// 	for (const field in formFields) {
+	// 		if (formFields[field] === "") {
+	// 			emptyFields
+	// 				? (emptyFields += `, ${field}`)
+	// 				: (emptyFields += `${field}`);
+	// 		}
+	// 	}
+	// 	if (emptyFields) {
+	// 		throw new Error(`${emptyFields} cannot be empty`);
+	// 	} else {
+	// 		return;
+	// 	}
+	// };
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
+			// findEmptyFormFields();
+
 			const response = await axios.post(
 				"http://localhost:4000/api/user/register",
 				formFields
@@ -35,11 +56,12 @@ const SignUpForm = ({ handleCloseModal, setAuthenticated }) => {
 		} catch (error) {
 			console.error(error);
 			setError(error.response.data.message);
+			// setError(error.message);
 		}
 	};
 
 	return (
-		<form className="signup-form">
+		<form className="signup-form" onSubmit={handleSubmit}>
 			<div className="form-floating mb-3 w-100">
 				<input
 					type="text"
@@ -47,6 +69,7 @@ const SignUpForm = ({ handleCloseModal, setAuthenticated }) => {
 					name="firstname"
 					id="floatingName"
 					placeholder="First name"
+					required
 					onChange={handleInputChange}
 				/>
 				<label htmlFor="floatingName">First name</label>
@@ -58,6 +81,7 @@ const SignUpForm = ({ handleCloseModal, setAuthenticated }) => {
 					name="lastname"
 					id="floatingSurname"
 					placeholder="Surname"
+					required
 					onChange={handleInputChange}
 				/>
 				<label htmlFor="floatingName">Surname</label>
@@ -69,6 +93,7 @@ const SignUpForm = ({ handleCloseModal, setAuthenticated }) => {
 					name="username"
 					id="floatingUsername"
 					placeholder="Username"
+					required
 					onChange={handleInputChange}
 				/>
 				<label htmlFor="floatingUsername">Username</label>
@@ -80,6 +105,7 @@ const SignUpForm = ({ handleCloseModal, setAuthenticated }) => {
 					name="email"
 					id="floatingEmail"
 					placeholder="Email"
+					required
 					onChange={handleInputChange}
 				/>
 				<label htmlFor="floatingEmail">Email</label>
@@ -91,6 +117,7 @@ const SignUpForm = ({ handleCloseModal, setAuthenticated }) => {
 					name="password"
 					id="floatingPasswordSignUp"
 					placeholder="Password"
+					required
 					onChange={handleInputChange}
 				/>
 				<label htmlFor="floatingPasswordSignUp">Password</label>
@@ -102,11 +129,13 @@ const SignUpForm = ({ handleCloseModal, setAuthenticated }) => {
 					name="passwordConfirmation"
 					id="floatingPasswordConfirmation"
 					placeholder="Confirm Password"
+					required
 					onChange={handleInputChange}
 				/>
 				<label htmlFor="floatingPasswordConfirmation">Confirm Password</label>
 			</div>
-			<button type="submit" className="signup mt-3" onClick={handleSubmit}>
+			{error && <p className="text-danger mt-3 mb-0">{error}</p>}
+			<button type="submit" className="signup mt-3">
 				Sign Up
 			</button>
 		</form>

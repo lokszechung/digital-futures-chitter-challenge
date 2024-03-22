@@ -6,6 +6,7 @@ import { isAuthenticated, setToken } from "../../../utils/auth.js";
 // import { useNavigate } from "react-router-dom";
 
 import "./LogInForm.css";
+import { set } from "mongoose";
 
 const LogInForm = ({ handleCloseModal, setAuthenticated }) => {
 	// const navigate = useNavigate();
@@ -17,6 +18,7 @@ const LogInForm = ({ handleCloseModal, setAuthenticated }) => {
 	const [error, setError] = useState("");
 
 	const handleInputChange = (e) => {
+		setError("");
 		setFormFields({ ...formFields, [e.target.name]: e.target.value });
 	};
 
@@ -39,7 +41,7 @@ const LogInForm = ({ handleCloseModal, setAuthenticated }) => {
 	};
 
 	return (
-		<form className="login-form">
+		<form className="login-form" onSubmit={handleSubmit}>
 			<div className="form-floating mb-3 w-100">
 				<input
 					type="text"
@@ -47,6 +49,7 @@ const LogInForm = ({ handleCloseModal, setAuthenticated }) => {
 					name="usernameOrEmail"
 					id="floatingInput"
 					placeholder="Email or username"
+					required
 					onChange={handleInputChange}
 				/>
 				<label htmlFor="floatingInput">Email or username</label>
@@ -58,11 +61,13 @@ const LogInForm = ({ handleCloseModal, setAuthenticated }) => {
 					name="password"
 					id="floatingPassword"
 					placeholder="Password"
+					required
 					onChange={handleInputChange}
 				/>
 				<label htmlFor="floatingPassword">Password</label>
 			</div>
-			<button type="submit" className="login mt-3" onClick={handleSubmit}>
+			{error && <p className="text-danger mt-3 mb-0">{error}</p>}
+			<button type="submit" className="login mt-3">
 				Log In
 			</button>
 		</form>

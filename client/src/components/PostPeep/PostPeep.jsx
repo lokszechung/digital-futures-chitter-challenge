@@ -40,6 +40,7 @@ const PostPeep = ({ name, getPeeps }) => {
 			console.log(response);
 			contentRef.current.value = "";
 			setContent("");
+			contentRef.current.style.height = "auto";
 			getPeeps();
 		} catch (error) {
 			console.error(error);
@@ -68,7 +69,7 @@ const PostPeep = ({ name, getPeeps }) => {
 					</div>
 					<div className="non-input-container">
 						<p className="count m-0">
-							Characters: <span>{content.trim().length}</span>/420
+							Limit: <span>{content.trim().length}</span>/420
 						</p>
 						<button
 							className="post-btn"
