@@ -2,6 +2,10 @@
   z-index: 0 !important;
 }
 
+/* .modal-open{
+  padding-right: 0px !important;
+} */
+
 .modal-nav-item{
   flex-grow: 1;
 }

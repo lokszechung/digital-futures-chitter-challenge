@@ -8,5 +8,13 @@
 }
 
 .signup{
-  height: 50px;
+  background: #17d1ac;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border: 1px solid white;
+  border-radius: 50px;
+  height: 42px;
+  width: 105px;
 }

@@ -1,7 +1,7 @@
-import SignInModal from "../SignInModal/SignInModal";
+// import SignInModal from "../SignInModal/SignInModal";
 import "./SignInButton.css";
 
-const SignInButton = ({ setAuthenticated }) => {
+const SignInButton = () => {
 	return (
 		<>
 			<button
@@ -24,7 +24,7 @@ const SignInButton = ({ setAuthenticated }) => {
 				</svg>
 				Log In
 			</button>
-			<SignInModal setAuthenticated={setAuthenticated} />
+			{/* <SignInModal setAuthenticated={setAuthenticated} /> */}
 		</>
 	);
 };

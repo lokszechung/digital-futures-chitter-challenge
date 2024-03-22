@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-import formatDate from "../../utils/formatDate";
+import formatDateTime from "../../utils/formatDateTime.js";
 import Avatar from "../Avatar/Avatar";
+
+import "./SinglePeep.css";
 
 const SinglePeep = ({ peep }) => {
 	const { author: authorId, content, createdAt } = peep;
-
-	// console.log(authorId, content, createdAt);
 
 	const [author, setAuthor] = useState({});
 
@@ -26,18 +26,20 @@ const SinglePeep = ({ peep }) => {
 		getAuthor();
 	}, [authorId]);
 
-	// useEffect(() => {
-	// 	console.log(author);
-	// }, [author]);
-
 	return (
-		<div className="peep-container">
-			<Avatar firstname={author.firstname} lastname={author.lastname} />
-			<p>
-				{author.firstname} {author.lastname} <span>@{author.username}</span>
-			</p>
+		<div className="single-peep-container">
+			<div className="author-info">
+				<Avatar firstname={author.firstname} lastname={author.lastname} />
+				<div className="author-name-username">
+					<p className="author-name mb-0 fw-bold">
+						{author.firstname} {author.lastname}
+					</p>
+					<p className="author-username mb-0">@{author.username}</p>
+				</div>
+				{/* <p className="peep-posted-time">{formatDateTime(createdAt)}</p> */}
+			</div>
 			<p className="peep-content">{content}</p>
-			<p className="peep-posted-time">{formatDate(createdAt)}</p>
+			<p className="peep-posted-time">{formatDateTime(createdAt)}</p>
 		</div>
 	);
 };

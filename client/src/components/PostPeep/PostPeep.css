@@ -1,0 +1,67 @@
+.post-peep-container{
+  max-width: 600px;
+  width: 80%;
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #17d1ac41;
+  border-top: none;
+}   
+
+.peep-form{
+  width: 100%;
+}
+
+.peep-textarea{
+  resize: none;
+  height: auto;
+  overflow: hidden;
+  margin-bottom: 10px;
+  border: none !important;
+  font-size: 1.2rem !important;
+}
+
+.peep-textarea::-webkit-input-placeholder {
+  font-size: 1.2rem !important;
+  color: silver !important;
+}
+
+.form-control:focus{
+  box-shadow: none !important;
+}
+
+.form-control:focus-visible{
+  outline: none !important;
+}
+
+.input-container{
+  display: flex;
+  gap: 10px;
+}
+
+.post-btn{
+  background: #17d1ac;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border: 1px solid white;
+  border-radius: 50px;
+  height: 42px;
+  width: 105px;
+}
+
+.post-btn:disabled{
+  background: #1dffd2;
+  cursor: not-allowed;
+
+}
+
+.non-input-container{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.count{
+  color: gray
+}

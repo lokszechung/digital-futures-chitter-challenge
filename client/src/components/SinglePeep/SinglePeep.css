@@ -1,0 +1,35 @@
+.single-peep-container{
+  max-width: 600px;
+  width: 80%;
+  padding: 10px;
+  padding-top: 20px;
+  border: 1px solid #17d1ac41;
+  border-top: none;
+}
+
+.single-peep-container:hover{
+  background-color: #17d1ac16;
+}
+
+.author-info {
+  display: flex;
+  /* align-items: center; */
+  /* justify-content: space-between; */
+  gap: 10px;
+}
+
+.author-username{
+  color: gray;
+}
+
+.peep-content{
+  font-size: 1.2rem;
+  margin-top: 10px;
+  padding-left: 58px;
+}
+
+.peep-posted-time {
+  color: gray;
+  padding-left: 58px;
+  /* margin-left: auto; */
+}

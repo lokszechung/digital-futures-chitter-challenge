@@ -1,10 +1,10 @@
 import Peeps from "../../components/Peeps/Peeps";
 import "./HomeView.css";
 
-const HomeView = () => {
+const HomeView = ({ name }) => {
 	return (
-		<div className="container-fluid home">
-			<Peeps />
+		<div className="home">
+			<Peeps name={name} />
 		</div>
 	);
 };

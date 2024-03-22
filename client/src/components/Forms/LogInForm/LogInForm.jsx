@@ -28,8 +28,10 @@ const LogInForm = ({ handleCloseModal, setAuthenticated }) => {
 				formFields
 			);
 			setToken(response.data.token);
-			setAuthenticated(isAuthenticated());
 			handleCloseModal();
+			setTimeout(() => {
+				setAuthenticated(isAuthenticated());
+			}, 300);
 		} catch (error) {
 			console.error(error);
 			setError(error.response.data.message);
@@ -60,11 +62,7 @@ const LogInForm = ({ handleCloseModal, setAuthenticated }) => {
 				/>
 				<label htmlFor="floatingPassword">Password</label>
 			</div>
-			<button
-				type="submit"
-				className="login btn btn-primary w-50 mt-3"
-				onClick={handleSubmit}
-			>
+			<button type="submit" className="login mt-3" onClick={handleSubmit}>
 				Log In
 			</button>
 		</form>

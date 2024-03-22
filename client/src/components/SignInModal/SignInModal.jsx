@@ -10,10 +10,23 @@ const SignInModal = ({ setAuthenticated }) => {
 		const modal = modalRef.current;
 		if (modal) {
 			modal.classList.remove("show");
+			modal.setAttribute("aria-hidden", "true");
+			modal.removeAttribute("aria-modal");
+			modal.removeAttribute("role");
+			modal.style.transition = "opacity 0.3s"; // Apply CSS transition for opacity
+			modal.style.opacity = "0"; //
+			setTimeout(() => {
+				modal.style.display = "none"; // Set display: none after the transition duration
+				document.body.style = "";
+			}, 300);
+			document.body.classList.remove("modal-open"); // Remove modal-open class from body
 		}
 		const backdrop = document.querySelector(".modal-backdrop");
 		if (backdrop) {
 			backdrop.classList.remove("show");
+			setTimeout(() => {
+				backdrop.remove();
+			}, 300);
 		}
 	};
 

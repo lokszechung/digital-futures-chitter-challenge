@@ -1,0 +1,12 @@
+.log-in-to-post-container{
+  max-width: 600px;
+  width: 80%;
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #17d1ac41;
+  border-top: none;
+}
+
+.log-in-to-post-text{
+  text-align: center;
+}

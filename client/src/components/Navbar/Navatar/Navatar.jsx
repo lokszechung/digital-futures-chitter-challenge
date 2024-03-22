@@ -3,7 +3,8 @@ import "./Navatar.css";
 import Avatar from "../../Avatar/Avatar";
 import { handleLogOut, isAuthenticated } from "../../../utils/auth.js";
 
-const Navatar = ({ firstname, lastname, setAuthenticated }) => {
+const Navatar = ({ name, setAuthenticated }) => {
+	const { firstname, lastname } = name;
 	function ClickLogOut() {
 		try {
 			handleLogOut();

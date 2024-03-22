@@ -1,0 +1,16 @@
+.peeps-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.separator{
+  max-width: 600px;
+  width: 80%;
+  height: 20px;
+  border: 1px solid #17d1ac41;
+  border-top: none;
+  background-color: #17d1ac41;
+}

@@ -28,8 +28,10 @@ const SignUpForm = ({ handleCloseModal, setAuthenticated }) => {
 				formFields
 			);
 			setToken(response.data.token);
-			setAuthenticated(isAuthenticated());
 			handleCloseModal();
+			setTimeout(() => {
+				setAuthenticated(isAuthenticated());
+			}, 300);
 		} catch (error) {
 			console.error(error);
 			setError(error.response.data.message);
@@ -104,11 +106,7 @@ const SignUpForm = ({ handleCloseModal, setAuthenticated }) => {
 				/>
 				<label htmlFor="floatingPasswordConfirmation">Confirm Password</label>
 			</div>
-			<button
-				type="submit"
-				className="signup btn btn-primary w-50 mt-3"
-				onClick={handleSubmit}
-			>
+			<button type="submit" className="signup mt-3" onClick={handleSubmit}>
 				Sign Up
 			</button>
 		</form>

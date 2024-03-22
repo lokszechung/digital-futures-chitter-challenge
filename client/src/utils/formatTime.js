@@ -1,6 +1,6 @@
 import moment from "moment";
 
-function formatDate(date) {
+function formatTime(date) {
 	const diff = moment().diff(moment(date), "seconds");
 
 	const thresholds = [
@@ -33,4 +33,4 @@ function formatDate(date) {
 	return formattedDate;
 }
 
-export default formatDate;
+export default formatTime;
