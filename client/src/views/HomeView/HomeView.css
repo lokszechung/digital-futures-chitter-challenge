@@ -1,3 +1,8 @@
 .home{
   margin-top: 80px;
 }
+
+.colour{
+  height: 50px;
+  aspect-ratio: 1/1;
+}

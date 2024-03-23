@@ -12,21 +12,20 @@ const PostPeep = ({ name, getPeeps }) => {
 
 	const [content, setContent] = useState("");
 
-	const { firstname, lastname } = name;
+	const { sub, firstname, lastname } = name;
+
+	useEffect(() => {
+		console.log("in post peep", name.sub);
+	}, [name]);
 
 	function handleContentChange(e) {
 		setContent(e.target.value);
 	}
 
-	useEffect(() => {
-		console.log(content);
-	}, [content]);
-
 	const handlePost = async (e) => {
 		e.preventDefault();
-		console.log("posting::::", content);
 		try {
-			const response = await axios.post(
+			await axios.post(
 				"http://localhost:4000/api/peep",
 				{
 					content: content,
@@ -37,7 +36,6 @@ const PostPeep = ({ name, getPeeps }) => {
 					},
 				}
 			);
-			console.log(response);
 			contentRef.current.value = "";
 			setContent("");
 			contentRef.current.style.height = "auto";
@@ -55,7 +53,7 @@ const PostPeep = ({ name, getPeeps }) => {
 	return (
 		<div className="post-peep-container">
 			<div className="input-container">
-				<Avatar firstname={firstname} lastname={lastname} />
+				<Avatar id={sub} firstname={firstname} lastname={lastname} />
 				<form className="peep-form">
 					<div className="input-group">
 						<textarea

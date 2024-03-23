@@ -4,7 +4,7 @@ import Avatar from "../../Avatar/Avatar";
 import { handleLogOut, isAuthenticated } from "../../../utils/auth.js";
 
 const Navatar = ({ name, setAuthenticated }) => {
-	const { firstname, lastname } = name;
+	const { sub, firstname, lastname } = name;
 	function ClickLogOut() {
 		try {
 			handleLogOut();
@@ -23,7 +23,7 @@ const Navatar = ({ name, setAuthenticated }) => {
 				aria-haspopup="true"
 				aria-expanded="false"
 			>
-				<Avatar firstname={firstname} lastname={lastname} />
+				<Avatar id={sub} firstname={firstname} lastname={lastname} />
 			</div>
 			<ul className="dropdown-menu dropdown-menu-end">
 				<li className="dropdown-item" onClick={ClickLogOut}>

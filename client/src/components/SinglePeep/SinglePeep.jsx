@@ -17,7 +17,6 @@ const SinglePeep = ({ peep }) => {
 				const { data } = await axios.get(
 					`http://localhost:4000/api/user/${authorId}`
 				);
-				// console.log(response);
 				setAuthor(data);
 			} catch (error) {
 				console.error(error);
@@ -29,7 +28,11 @@ const SinglePeep = ({ peep }) => {
 	return (
 		<div className="single-peep-container">
 			<div className="author-info">
-				<Avatar firstname={author.firstname} lastname={author.lastname} />
+				<Avatar
+					id={authorId}
+					firstname={author.firstname}
+					lastname={author.lastname}
+				/>
 				<div className="author-name-username">
 					<p className="author-name mb-0 fw-bold">
 						{author.firstname} {author.lastname}

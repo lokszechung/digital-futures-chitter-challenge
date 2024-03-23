@@ -12,8 +12,8 @@ function App() {
 
 	useEffect(() => {
 		if (isAuthenticated()) {
-			const { firstname, lastname } = getPayload();
-			setName({ firstname, lastname });
+			const { sub, firstname, lastname } = getPayload();
+			setName({ sub, firstname, lastname });
 		}
 	}, [authenticated]);
 
