@@ -1,13 +1,11 @@
 import axios from "axios";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { setToken, isAuthenticated } from "../../../utils/auth";
 
 import "./SignUpForm.css";
 
 const SignUpForm = ({ handleCloseModal, setAuthenticated }) => {
-	// const formRef = useRef(null);
-
 	const [formFields, setFormFields] = useState({
 		firstname: "",
 		lastname: "",
@@ -23,27 +21,9 @@ const SignUpForm = ({ handleCloseModal, setAuthenticated }) => {
 		setFormFields({ ...formFields, [e.target.name]: e.target.value });
 	};
 
-	// const findEmptyFormFields = () => {
-	// 	let emptyFields = "";
-	// 	for (const field in formFields) {
-	// 		if (formFields[field] === "") {
-	// 			emptyFields
-	// 				? (emptyFields += `, ${field}`)
-	// 				: (emptyFields += `${field}`);
-	// 		}
-	// 	}
-	// 	if (emptyFields) {
-	// 		throw new Error(`${emptyFields} cannot be empty`);
-	// 	} else {
-	// 		return;
-	// 	}
-	// };
-
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			// findEmptyFormFields();
-
 			const response = await axios.post(
 				"http://localhost:4000/api/user/register",
 				formFields
@@ -56,7 +36,6 @@ const SignUpForm = ({ handleCloseModal, setAuthenticated }) => {
 		} catch (error) {
 			console.error(error);
 			setError(error.response.data.message);
-			// setError(error.message);
 		}
 	};
 

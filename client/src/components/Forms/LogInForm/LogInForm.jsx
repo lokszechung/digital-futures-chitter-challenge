@@ -1,16 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 
 import { isAuthenticated, setToken } from "../../../utils/auth.js";
 
-// import { useNavigate } from "react-router-dom";
-
 import "./LogInForm.css";
-import { set } from "mongoose";
 
 const LogInForm = ({ handleCloseModal, setAuthenticated }) => {
-	// const navigate = useNavigate();
-
 	const [formFields, setFormFields] = useState({
 		usernameOrEmail: "",
 		password: "",
