@@ -1,7 +1,8 @@
 import { useState } from "react";
-import axios from "axios";
 
 import { isAuthenticated, setToken } from "../../../utils/auth.js";
+
+import { logIn } from "../../../utils/services.js";
 
 import "./LogInForm.css";
 
@@ -20,17 +21,13 @@ const LogInForm = ({ handleCloseModal, setAuthenticated }) => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			const response = await axios.post(
-				"http://localhost:4000/api/user/login",
-				formFields
-			);
-			setToken(response.data.token);
+			const response = await logIn(formFields);
+			setToken(response.token);
 			handleCloseModal();
 			setTimeout(() => {
 				setAuthenticated(isAuthenticated());
 			}, 300);
 		} catch (error) {
-			console.error(error);
 			setError(error.response.data.message);
 		}
 	};

@@ -1,13 +1,12 @@
-import axios from "axios";
 import { useState, useEffect } from "react";
 import { isAuthenticated } from "../../utils/auth.js";
+import { getAllPeeps } from "../../utils/services.js";
 
 import SinglePeep from "../SinglePeep/SinglePeep";
 import PostPeep from "../PostPeep/PostPeep";
 import LogInToPost from "../LogInToPost/LogInToPost.jsx";
 
 import "./Peeps.css";
-import { set } from "mongoose";
 
 const Peeps = ({ name }) => {
 	const [peeps, setPeeps] = useState([]);
@@ -16,8 +15,8 @@ const Peeps = ({ name }) => {
 	const getPeeps = async () => {
 		try {
 			setLoading(true);
-			const { data } = await axios.get("http://localhost:4000/api/peep");
-			setPeeps(data.reverse());
+			const response = await getAllPeeps();
+			setPeeps(response.reverse());
 		} catch (error) {
 			console.error(error);
 		} finally {

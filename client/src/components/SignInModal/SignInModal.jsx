@@ -13,13 +13,13 @@ const SignInModal = ({ setAuthenticated }) => {
 			modal.setAttribute("aria-hidden", "true");
 			modal.removeAttribute("aria-modal");
 			modal.removeAttribute("role");
-			modal.style.transition = "opacity 0.3s"; // Apply CSS transition for opacity
-			modal.style.opacity = "0"; //
+			modal.style.transition = "opacity 0.3s";
+			modal.style.opacity = "0";
 			setTimeout(() => {
-				modal.style.display = "none"; // Set display: none after the transition duration
+				modal.style.display = "none";
 				document.body.style = "";
 			}, 300);
-			document.body.classList.remove("modal-open"); // Remove modal-open class from body
+			document.body.classList.remove("modal-open");
 		}
 		const backdrop = document.querySelector(".modal-backdrop");
 		if (backdrop) {

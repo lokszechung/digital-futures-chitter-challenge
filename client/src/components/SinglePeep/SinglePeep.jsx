@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import { getUser } from "../../utils/services.js";
 
 import formatDateTime from "../../utils/formatDateTime.js";
 import Avatar from "../Avatar/Avatar";
@@ -14,10 +14,8 @@ const SinglePeep = ({ peep }) => {
 	useEffect(() => {
 		const getAuthor = async () => {
 			try {
-				const { data } = await axios.get(
-					`http://localhost:4000/api/user/${authorId}`
-				);
-				setAuthor(data);
+				const response = await getUser(authorId);
+				setAuthor(response);
 			} catch (error) {
 				console.error(error);
 			}
@@ -39,7 +37,6 @@ const SinglePeep = ({ peep }) => {
 					</p>
 					<p className="author-username mb-0">@{author.username}</p>
 				</div>
-				{/* <p className="peep-posted-time">{formatDateTime(createdAt)}</p> */}
 			</div>
 			<p className="peep-content">{content}</p>
 			<p className="peep-posted-time">{formatDateTime(createdAt)}</p>

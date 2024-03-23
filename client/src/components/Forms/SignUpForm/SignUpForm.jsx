@@ -1,7 +1,6 @@
-import axios from "axios";
-
 import { useState } from "react";
-import { setToken, isAuthenticated } from "../../../utils/auth";
+import { setToken, isAuthenticated } from "../../../utils/auth.js";
+import { signUp } from "../../../utils/services.js";
 
 import "./SignUpForm.css";
 
@@ -24,11 +23,8 @@ const SignUpForm = ({ handleCloseModal, setAuthenticated }) => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			const response = await axios.post(
-				"http://localhost:4000/api/user/register",
-				formFields
-			);
-			setToken(response.data.token);
+			const response = await signUp(formFields);
+			setToken(response.token);
 			handleCloseModal();
 			setTimeout(() => {
 				setAuthenticated(isAuthenticated());

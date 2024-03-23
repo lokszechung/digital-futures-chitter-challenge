@@ -1,11 +1,9 @@
 import "./PostPeep.css";
 
-import axios from "axios";
-
 import { useEffect, useState, useRef } from "react";
 
-import { getToken } from "../../utils/auth.js";
 import Avatar from "../Avatar/Avatar.jsx";
+import { postPeep } from "../../utils/services.js";
 
 const PostPeep = ({ name, getPeeps }) => {
 	const contentRef = useRef(null);
@@ -25,17 +23,7 @@ const PostPeep = ({ name, getPeeps }) => {
 	const handlePost = async (e) => {
 		e.preventDefault();
 		try {
-			await axios.post(
-				"http://localhost:4000/api/peep",
-				{
-					content: content,
-				},
-				{
-					headers: {
-						Authorization: `Bearer ${getToken()}`,
-					},
-				}
-			);
+			await postPeep(content);
 			contentRef.current.value = "";
 			setContent("");
 			contentRef.current.style.height = "auto";
