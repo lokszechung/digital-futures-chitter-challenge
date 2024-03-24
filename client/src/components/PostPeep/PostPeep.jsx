@@ -12,9 +12,9 @@ const PostPeep = ({ name, getPeeps }) => {
 
 	const { sub, firstname, lastname } = name;
 
-	useEffect(() => {
-		console.log("in post peep", name.sub);
-	}, [name]);
+	// useEffect(() => {
+	// 	console.log("in post peep", name.sub);
+	// }, [name]);
 
 	function handleContentChange(e) {
 		setContent(e.target.value);
@@ -23,6 +23,7 @@ const PostPeep = ({ name, getPeeps }) => {
 	const handlePost = async (e) => {
 		e.preventDefault();
 		try {
+			// console.log("posting peep");
 			await postPeep(content);
 			contentRef.current.value = "";
 			setContent("");
@@ -42,7 +43,7 @@ const PostPeep = ({ name, getPeeps }) => {
 		<div className="post-peep-container">
 			<div className="input-container">
 				<Avatar id={sub} firstname={firstname} lastname={lastname} />
-				<form className="peep-form">
+				<form className="peep-form" onSubmit={handlePost}>
 					<div className="input-group">
 						<textarea
 							className="peep-textarea form-control p-0"
@@ -57,12 +58,7 @@ const PostPeep = ({ name, getPeeps }) => {
 						<p className="count m-0">
 							Limit: <span>{content.trim().length}</span>/420
 						</p>
-						<button
-							className="post-btn"
-							type="submit"
-							disabled={!content.trim()}
-							onClick={handlePost}
-						>
+						<button className="post-btn" type="submit" disabled={true}>
 							Post
 						</button>
 					</div>

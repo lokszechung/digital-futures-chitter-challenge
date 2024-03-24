@@ -35,7 +35,7 @@ const Peeps = ({ name }) => {
 			</div>
 		</div>
 	) : (
-		<div className="peeps-container">
+		<div className="peeps-container" data-testid="peeps-container">
 			{isAuthenticated() ? (
 				<PostPeep name={name} getPeeps={getPeeps} />
 			) : (

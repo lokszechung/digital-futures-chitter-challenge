@@ -55,11 +55,12 @@ const LogInForm = ({ handleCloseModal, setAuthenticated }) => {
 					placeholder="Password"
 					required
 					onChange={handleInputChange}
+					data-testid="log-in-password"
 				/>
 				<label htmlFor="floatingPassword">Password</label>
 			</div>
 			{error && <p className="text-danger mt-3 mb-0">{error}</p>}
-			<button type="submit" className="login mt-3">
+			<button type="submit" className="login mt-3" data-testid="log-in-submit">
 				Log In
 			</button>
 		</form>

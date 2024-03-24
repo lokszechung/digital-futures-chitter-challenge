@@ -24,7 +24,11 @@ const SinglePeep = ({ peep }) => {
 	}, [authorId]);
 
 	return (
-		<div className="single-peep-container">
+		<div
+			className="single-peep-container"
+			data-timestamp={createdAt}
+			data-testid="single-peep"
+		>
 			<div className="author-info">
 				<Avatar
 					id={authorId}

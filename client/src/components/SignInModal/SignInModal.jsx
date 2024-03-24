@@ -52,6 +52,7 @@ const SignInModal = ({ setAuthenticated }) => {
 								role="tab"
 								aria-controls="sign-up"
 								aria-selected="true"
+								data-testid="sign-up-tab"
 							>
 								Sign Up
 							</button>
@@ -66,6 +67,7 @@ const SignInModal = ({ setAuthenticated }) => {
 								role="tab"
 								aria-controls="log-in"
 								aria-selected="false"
+								data-testid="log-in-tab"
 							>
 								Log In
 							</button>

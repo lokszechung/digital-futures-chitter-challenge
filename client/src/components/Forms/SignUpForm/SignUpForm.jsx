@@ -23,6 +23,7 @@ const SignUpForm = ({ handleCloseModal, setAuthenticated }) => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
+			// console.log("CLICKEDDDDD");
 			const response = await signUp(formFields);
 			setToken(response.token);
 			handleCloseModal();
@@ -30,7 +31,7 @@ const SignUpForm = ({ handleCloseModal, setAuthenticated }) => {
 				setAuthenticated(isAuthenticated());
 			}, 300);
 		} catch (error) {
-			console.error(error);
+			// console.error(error);
 			setError(error.response.data.message);
 		}
 	};
@@ -91,6 +92,7 @@ const SignUpForm = ({ handleCloseModal, setAuthenticated }) => {
 					className="form-control"
 					name="password"
 					id="floatingPasswordSignUp"
+					data-testid="sign-up-password"
 					placeholder="Password"
 					required
 					onChange={handleInputChange}
@@ -110,7 +112,11 @@ const SignUpForm = ({ handleCloseModal, setAuthenticated }) => {
 				<label htmlFor="floatingPasswordConfirmation">Confirm Password</label>
 			</div>
 			{error && <p className="text-danger mt-3 mb-0">{error}</p>}
-			<button type="submit" className="signup mt-3">
+			<button
+				type="submit"
+				className="signup mt-3"
+				data-testid="sign-up-submit"
+			>
 				Sign Up
 			</button>
 		</form>

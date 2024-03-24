@@ -6,6 +6,7 @@ const SignInButton = () => {
 		<>
 			<button
 				className="sign-in"
+				data-testid="sign-in-button"
 				data-bs-toggle="modal"
 				data-bs-target="#signInModal"
 			>
