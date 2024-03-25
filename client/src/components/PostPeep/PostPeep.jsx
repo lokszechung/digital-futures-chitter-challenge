@@ -53,7 +53,11 @@ const PostPeep = ({ name, getPeeps }) => {
 						<p className="count m-0">
 							Limit: <span>{content.trim().length}</span>/420
 						</p>
-						<button className="post-btn" type="submit" disabled={true}>
+						<button
+							className="post-btn"
+							type="submit"
+							disabled={!content.trim()}
+						>
 							Post
 						</button>
 					</div>
