@@ -25,7 +25,6 @@ const SignInButton = () => {
 				</svg>
 				Log In
 			</button>
-			{/* <SignInModal setAuthenticated={setAuthenticated} /> */}
 		</>
 	);
 };
