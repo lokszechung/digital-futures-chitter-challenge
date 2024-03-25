@@ -12,10 +12,6 @@ const PostPeep = ({ name, getPeeps }) => {
 
 	const { sub, firstname, lastname } = name;
 
-	// useEffect(() => {
-	// 	console.log("in post peep", name.sub);
-	// }, [name]);
-
 	function handleContentChange(e) {
 		setContent(e.target.value);
 	}
@@ -23,7 +19,6 @@ const PostPeep = ({ name, getPeeps }) => {
 	const handlePost = async (e) => {
 		e.preventDefault();
 		try {
-			// console.log("posting peep");
 			await postPeep(content);
 			contentRef.current.value = "";
 			setContent("");
