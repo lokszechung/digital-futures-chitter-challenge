@@ -8,7 +8,7 @@ import { isAuthenticated } from "../../src/utils/auth.js";
 describe("Peeps tests", () => {
 	vi.mock("../../src/utils/services.js");
 
-	it("Peeps should display in reverse chron", async () => {
+	it("Peeps should be displayed in reverse chronological order", async () => {
 		getAllPeeps.mockResolvedValue(testPeepsArray);
 		getUser.mockResolvedValue({
 			firstname: "Fake",

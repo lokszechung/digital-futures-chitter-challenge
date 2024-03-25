@@ -25,9 +25,6 @@ function App() {
 				name={name}
 			/>
 			<HomeView name={name} />
-			{/* <Routes>
-				<Route path="/" element={<HomeView name={name} />} />
-			</Routes> */}
 		</>
 	);
 }

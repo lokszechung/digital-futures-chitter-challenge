@@ -5,7 +5,7 @@ import { postPeep } from "../../src/utils/services";
 
 describe("PostPeep tests", () => {
 	vi.mock("../../src/utils/services.js");
-	it("Should be able to post a Peep", async () => {
+	it("Should be able to post a Peep when logged in", async () => {
 		const testName = {
 			sub: "6600268fc250b55c639dbf7d",
 			firstname: "Test",

@@ -8,7 +8,7 @@ describe("Sign up tests", () => {
 	vi.mock("../../../src/utils/services.js");
 	vi.mock("../../../src/utils/auth.js");
 
-	it("User should be able to submit a sign up form and be logged in", async () => {
+	it("User should be able to submit a sign up form and be logged in automatically", async () => {
 		const testUser = {
 			sub: "6600268fc250b55c639dbf7d",
 			firstname: "Fake",
@@ -52,7 +52,7 @@ describe("Sign up tests", () => {
 			screen.getByPlaceholderText("Confirm Password"),
 			"password"
 		);
-		// expect(authenticated).toBe(false);
+
 		await userEvent.click(screen.getByTestId("sign-up-submit"));
 		console.log("Value of auth after clicking submitt:", auth);
 

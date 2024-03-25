@@ -6,7 +6,7 @@ import userEvent from "@testing-library/user-event";
 import Navbar from "../../src/components/Navbar/Navbar";
 
 describe("Navbar tests", () => {
-	it("Not Logged in user should see button to log in", async () => {
+	it("Not logged in user should see button to log in", async () => {
 		render(
 			<Navbar authenticated={false} setAuthenticated={vi.fn()} name={{}} />
 		);
