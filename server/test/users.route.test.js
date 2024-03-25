@@ -118,7 +118,7 @@ describe("Integration Tests on requests to the /user route", () => {
 			expect(response.body).to.have.property("token").not.null;
 		});
 
-		it("Should return a token when a user logs in with username", async () => {
+		it("Should return a token when a user logs in with email", async () => {
 			const testLogin = {
 				usernameOrEmail: "testemail@test.com",
 				password: "123",

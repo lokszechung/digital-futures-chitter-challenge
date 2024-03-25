@@ -1,31 +1,66 @@
-Site visitors should be able to see the latest 'Peeps' (posts to Chitter) from all users when they go to the site's homepage without having to create an account or log in
-These should be displayed in reverse chronological order
-Users should be able to sign up to the application with their email, password, name and a username
-The username and email should be unique
-Users should be able to log in to the application
-This should be done using their email or username and password
-Logged in users should be able to create and post a new 'Peep'
-'Peeps' should have the name of the user and their user handle
-Users should be able to log out of the application
-The UI should be responsive and work well on different sized devices
+#User Stories and Test Plan:
 
-User stories:
+##Backend:
 
-Backend:
+**1. As a user, I want to be able to create an account using my email, password, name and a username, so that I can use Chitter's functionalities**
+TEST: registerUser controller should call registerUserService
+TEST: registerUser controller should call res.json and res.status with the result of registerUserService call
+TEST: POST requests to /api/user/register should add a properly formatted user to the database
+TEST: POST requests to /api/user/register should not allow registration when passwords do not match
+**2. As the system, I want the username and email to be unique, so that I can distinguish one user from another**
+TEST: POST requests to /api/user/register should not allow registration when email is duplicated
+TEST: POST requests to /api/user/register should not allow registration when username is duplicated
+**3. As a user, I want to be able to log in with my email/username and password, so that I can start posting**
+TEST: loginUser controller should call loginUserService
+TEST: loginUser controller should call res.json and res.status with the result of loginUserService call
+TEST: POST requests to /api/user/login should return a token when a user logs in with username
+TEST: POST requests to /api/user/login should return a token when a user logs in with email
+TEST: POST requests to /api/user/login should return an error message when a user logs in with incorrect usernameOrEmail
+TEST: POST requests to /api/user/login should return an error message when a user logs in with incorrect password
+**4. As a user, I want to be able to create and post a Peep if I am logged in, so that I can keep others updated**
+TEST: addPeep controller should call addPeepService
+TEST: addPeep controller Should call res.json and res.status with the result of addPeepService call
+TEST: POST requests to /api/peep should add a properly formatted peep to the database
+TEST: POST requests to /api/peep should not allow a peep to be added with empty content field
+**5. As a user, I want each Peep to have an author, so that I can see who posted it**
+TEST: getSingleUser controller should call getSingleUserService
+TEST: getSingleUser controller should call res.json and res.status with the result of getSingleUserService call
+TEST: GET requests to /api/user/:id should return a user when a valid id is provided
+TEST: GET requests to /api/user/:id should return status 404 when an invalid id is provided
+**6. As a user, I want to be able to get all Peeps, so that I can see everyone's Peeps.**
+TEST: getAllPeeps controller should call getAllPeepsService
+TEST: getAllPeeps controller should call res.json and res.status with the result of getAllPeepsService call
+**7. As a system, I want to receive a JWT upon successful log in and/or sign up, so that secure authentication can be provided for subsequent requests**
+TEST: POST requests to /api/peep should not allow a peep to be added without a valid token
 
-1. As a user, I want to be able to create an account using my email, password, name and a username, so that I can use Chitter's functionalities?
-2. As a user, I want the username and email to be unique, so that there is no confusion and error
-3. As a user, I want to be able to log in with my email/username and password, so that...
-4. As a user, I want to be able to create and post if Peep if I am logged in, so that
-5. As a user, I want each Peep to have an author, so that I can see who posted it
-6. As a user, I want to be able to get all Peeps, so that see everyone's Peeps.
+##Frontend:
 
-Frontend
-
-1. As a user, I want to be able to see all peeps, regardless of whether I am logged in or not
-2. As a user, I want to see peeps displayed in reverse chronological order, so I can see the latest Peeps first.
-3. As a user, I want to be able log in or sign up to Chitter
-4. As a user, I want to be able to log out of Chitter
-5. As a user, I want to be able to post a Peep when logged in,
-6. As a user, I want to be able to see a Peep's user and handle
-7. As a user, I want to UI to be responsive across all devices
+**1. As a user, I want to be able to see all peeps, regardless of whether I am logged in or not, so I can keep updated on what's happening**
+TEST: getAllPeeps should return all peeps
+TEST: getUser should return a user
+TEST: Peeps should be displayed when not logged in
+TEST: Peeps should be displayed when logged in
+**2. As a user, I want to see peeps displayed in reverse chronological order, so I can see the latest Peeps first**
+TEST: Peeps should be displayed in reverse chronological order
+**3. As a user, I want to be able to sign up to Chitter, so that I can post from my account**
+TEST: signUp should return a user and a token
+TEST: User should be able to submit a sign up form and be logged in automatically
+TEST: Should return an error if username is duplicated
+TEST: Should return an error if passwords do not match
+**4. As a user, I want to be able log in to Chitter, so I can post a Peep**
+TEST: logIn should return a user and a token
+TEST: Not logged in user should see button to log in
+TEST: Logged in user should see their Avatar with log out button
+TEST: Should log in a user
+TEST: Should display error if username or password is incorrect
+**5. As a user, I want to be able to log out of Chitter, so that others can't access my account**
+TEST: Should see Log In button after logging out
+**6. As a user, I want to be able to post a Peep when logged in, so that my posts have my name on it**
+TEST: postPeep should post a Peep
+TEST: Should see prompt to log in to post when not logged in
+TEST: Should see input box for posting Peep when logged in
+TEST: Should be able to post a Peep when logged in
+TEST: Should not be able to post a Peep if content is whitespace
+**7. As a user, I want to be able to see a Peep's user and handle, so I know who posted it**
+TEST: Peep should display author's name and handle
+**8. As a user, I want to UI to be responsive across all devices, so that I can easily use it on any device**
