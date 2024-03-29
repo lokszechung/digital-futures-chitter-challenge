@@ -1,5 +1,5 @@
-import LogInForm from "../Forms/LogInForm/LogInForm";
-import SignUpForm from "../Forms/SignUpForm/SignUpForm";
+import LogInForm from "../forms/LogInForm/LogInForm";
+import SignUpForm from "../forms/SignUpForm/SignUpForm";
 import "./SignInModal.css";
 import { useRef } from "react";
 

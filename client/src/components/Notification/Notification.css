@@ -1,0 +1,27 @@
+.notification-container{
+  margin: 0px 10px 10px 10px;
+  background-color: #f5fdfb;
+  width: 300px;
+  height: 75px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 5px;
+}
+
+.notification-container:hover{
+  cursor: pointer;
+}
+
+.notif-content{
+  padding-left: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.unread{
+  background-color: #17d1ac41;
+}

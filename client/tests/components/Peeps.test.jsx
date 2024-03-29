@@ -4,19 +4,19 @@ import App from "../../src/App.jsx";
 import testPeepsArray from "../data/testPeepsArray";
 import { getAllPeeps, getUser } from "../../src/utils/services.js";
 import { isAuthenticated } from "../../src/utils/auth.js";
+import { MemoryRouter } from "react-router-dom";
 
 describe("Peeps tests", () => {
 	vi.mock("../../src/utils/services.js");
 
 	it("Peeps should be displayed in reverse chronological order", async () => {
 		getAllPeeps.mockResolvedValue(testPeepsArray);
-		getUser.mockResolvedValue({
-			firstname: "Fake",
-			lastname: "User",
-			username: "fakeuser",
-		});
 
-		render(<Peeps name={{}} />);
+		render(
+			<MemoryRouter>
+				<Peeps name={{}} />
+			</MemoryRouter>
+		);
 
 		let peeps;
 

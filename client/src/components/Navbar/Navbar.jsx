@@ -1,6 +1,7 @@
 import Navatar from "./Navatar/Navatar";
 import SignInButton from "../SignInButton/SignInButton";
 import SignInModal from "../SignInModal/SignInModal";
+import NotifBell from "./NotifBell/NotifBell";
 
 // import { isAuthenticated } from "../../utils/auth";
 
@@ -14,7 +15,10 @@ const Navbar = ({ authenticated, setAuthenticated, name }) => {
 
 				<div className="navbar-actions">
 					{authenticated ? (
-						<Navatar name={name} setAuthenticated={setAuthenticated} />
+						<div className="authd-actions">
+							<NotifBell />
+							<Navatar name={name} setAuthenticated={setAuthenticated} />
+						</div>
 					) : (
 						<>
 							<SignInButton setAuthenticated={setAuthenticated} />

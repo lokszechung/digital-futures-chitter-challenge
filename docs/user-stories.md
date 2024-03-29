@@ -46,6 +46,39 @@
 
 - TEST: POST requests to /api/peep should not allow a peep to be added without a valid token
 
+8. **As a user, I want to be able to edit my Peep, so I can correct any mistakes I made**
+
+TODO: updatePeep controller should call updatePeepService
+TODO: updatePeep controller should call res.json and res.status with the result of updatePeepService call
+TODO: PUT request to /api/peep/:id should update Peep content and edited
+TODO: PUT request to /api/peep/:id should return status 404 when an invalid id is provided
+TODO: PUT request to /api/peep/:id should return status 401 when not owner of Peep
+
+9. **As a user, I want to be able to delete my Peep, so I can permanently remove a Peep from the app**
+
+TODO: deletePeep controller should call deletePeepService
+TODO: deletePeep controller should call res.json and res.status with the result of deletePeepService call
+TODO: DELETE request to /api/peep/:id should remove Peep
+TODO: DELETE request to /api/peep/:id should return status 404 when an invalid id is provided
+TODO: DELETE request to /api/peep/:id should return status 401 when not owner of Peep
+
+10. **As a user, I want to be able to reply to a Peep, so that I can have a conversation**
+
+TODO: addPeepReply controller should call addPeepReplyService
+TODO: addPeepReply controller should call res.json and res.status with the result of addPeepReplyService call
+TODO: POST request to /api/peep/:id should add a reply to Peep replies array
+TODO: POST request to /api/peep/:id should return status 404 when an invalid id is provided
+
+11. **As a user, I want to recieve a notification, so that I can know when someone has replied to my Peep**
+
+TODO: addPeepReply controller should call addNotificationService
+TODO: POST request to /api/peep/:id should create a new notification
+TODO: GET request to /api/notification should return all notifications for a particular user
+
+12. **As a user, I want to recieve an email when someone replies to my Peep, so I can stay updated even when away from the app**
+
+TODO: addPeepReply controller should call sendEmail
+
 ## Frontend:
 
 1. **As a user, I want to be able to see all peeps, regardless of whether I am logged in or not, so I can keep updated on what's happening**

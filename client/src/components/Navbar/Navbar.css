@@ -33,3 +33,9 @@
   display: flex;
   align-items: center;
 }
+
+.authd-actions{
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}

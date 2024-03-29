@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { isAuthenticated } from "../../utils/auth.js";
 import { getAllPeeps } from "../../utils/services.js";
+import { sortPeepsByTime } from "../../utils/sortByTime.js";
 
 import SinglePeep from "../SinglePeep/SinglePeep";
 import PostPeep from "../PostPeep/PostPeep";
-import LogInToPost from "../LogInToPost/LogInToPost.jsx";
+import LogInToAction from "../LogInToAction/LogInToAction.jsx";
 
 import "./Peeps.css";
 
@@ -16,7 +17,8 @@ const Peeps = ({ name }) => {
 		try {
 			setLoading(true);
 			const response = await getAllPeeps();
-			setPeeps(response.reverse());
+			console.log(response);
+			setPeeps(sortPeepsByTime(response));
 		} catch (error) {
 			console.error(error);
 		} finally {
@@ -39,11 +41,11 @@ const Peeps = ({ name }) => {
 			{isAuthenticated() ? (
 				<PostPeep name={name} getPeeps={getPeeps} />
 			) : (
-				<LogInToPost />
+				<LogInToAction action={"post"} />
 			)}
 			<div className="separator"></div>
 			{peeps.map((peep) => {
-				return <SinglePeep key={peep._id} peep={peep} />;
+				return <SinglePeep key={peep._id} peep={peep} getPeeps={getPeeps} />;
 			})}
 		</div>
 	);

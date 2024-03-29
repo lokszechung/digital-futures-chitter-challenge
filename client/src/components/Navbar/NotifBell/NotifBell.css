@@ -1,0 +1,48 @@
+.notif-bell{
+  width: 48px;
+  aspect-ratio: 1/1;
+  position: relative;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.notif-bell:hover{
+  background-color: #1cf0c5;
+  cursor: pointer;
+}
+
+.notif-bell svg {
+  width: 100%; 
+  height: auto; 
+}
+
+.notif-dropdown{
+  max-height: 600px; 
+  overflow-y: auto;
+  right: 40%;
+  transform: translateX(40%);
+}
+
+.unread-circle{
+  position: absolute;
+  top: 0;
+  right: -5px;
+  height: 20px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  background-color: red;
+  color: white;
+  margin-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8rem;
+}
+
+.notif-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

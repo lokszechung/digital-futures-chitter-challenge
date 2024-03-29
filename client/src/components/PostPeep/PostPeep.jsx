@@ -51,7 +51,7 @@ const PostPeep = ({ name, getPeeps }) => {
 					</div>
 					<div className="non-input-container">
 						<p className="count m-0">
-							Limit: <span>{content.trim().length}</span>/420
+							Limit: <span>{content.trim().length}</span>/300
 						</p>
 						<button
 							className="post-btn"

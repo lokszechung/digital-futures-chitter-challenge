@@ -1,0 +1,8 @@
+.reply-peep-container{
+  max-width: 600px;
+  width: 80%;
+  padding: 10px;
+  padding-top: 30px;
+  border: 1px solid #17d1ac41;
+  border-top: none;
+}

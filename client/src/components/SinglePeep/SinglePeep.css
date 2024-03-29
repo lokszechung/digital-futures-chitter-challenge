@@ -13,8 +13,6 @@
 
 .author-info {
   display: flex;
-  /* align-items: center; */
-  /* justify-content: space-between; */
   gap: 10px;
 }
 
@@ -33,4 +31,32 @@
   color: gray;
   padding-left: 58px;
   /* margin-left: auto; */
+}
+
+.peep-options{
+  height: 30px;
+  aspect-ratio: 1/1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.peep-options:hover{
+  background-color: #17d1ac41;
+}
+
+.peep-option-dropdown{
+  margin-left: auto;
+}
+
+.peep-edited{
+  font-size: 0.9rem;
+}
+
+.peep-replies-amt{
+  padding-left: 58px;
+  color: gray;
+  margin-bottom: 0;
 }

@@ -1,7 +1,7 @@
 .avatar-container{
   height: 48px;
   aspect-ratio: 1/1;
-  background-color: coral;
+  /* background-color: coral; */
   border-radius: 50%;
   display: flex;
   justify-content: center;

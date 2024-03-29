@@ -54,7 +54,6 @@ describe("Sign up tests", () => {
 		);
 
 		await userEvent.click(screen.getByTestId("sign-up-submit"));
-		console.log("Value of auth after clicking submitt:", auth);
 
 		await waitFor(() => {
 			rerender(

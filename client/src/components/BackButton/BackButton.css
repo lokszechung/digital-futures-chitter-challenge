@@ -1,0 +1,25 @@
+.back-container{
+  max-width: 600px;
+  width: 80%;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+}
+
+.back-btn-container{
+  border-radius: 50px;
+}
+
+.back-btn-container:hover{
+  background-color: #17d1ac41;
+  cursor: pointer;
+}
+
+.back-btn{
+  height: 30px;
+}
+
+.back-to-post{
+  margin-left: 10px !important;
+}

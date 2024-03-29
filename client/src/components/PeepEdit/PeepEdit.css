@@ -1,0 +1,18 @@
+.cancel-btn{
+  background: #1cf4c9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border: 1px solid white;
+  border-radius: 50px;
+  height: 42px;
+  width: 105px;
+  margin-left: auto;
+  margin-right: 10px;
+}
+
+.edit-peep-container{
+  margin-left: 58px;
+  margin-top: 10px;
+}

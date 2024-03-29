@@ -2,13 +2,18 @@ import { render, screen, waitFor } from "@testing-library/react";
 import App from "../src/App";
 import { getAllPeeps, getUser } from "../src/utils/services.js";
 import { isAuthenticated, getPayload } from "../src/utils/auth.js";
+import { MemoryRouter } from "react-router-dom";
 import testPeepsArray from "./data/testPeepsArray";
 
 describe("App tests", () => {
 	vi.mock("../src/utils/services.js");
 	vi.mock("../src/utils/auth.js");
 	it("App component should show Chitter name", () => {
-		render(<App />);
+		render(
+			<MemoryRouter>
+				<App />
+			</MemoryRouter>
+		);
 
 		expect(screen.getByText("Chitter")).toBeInTheDocument();
 	});
@@ -21,14 +26,13 @@ describe("App tests", () => {
 			lastname: "User",
 		});
 		getAllPeeps.mockResolvedValue(testPeepsArray);
-		getUser.mockResolvedValue({
-			firstname: "Fake",
-			lastname: "User",
-			username: "fakeuser",
-		});
 		isAuthenticated.mockReturnValue(false);
 
-		render(<App />);
+		render(
+			<MemoryRouter>
+				<App />
+			</MemoryRouter>
+		);
 
 		await waitFor(() => {
 			expect(screen.getAllByTestId("single-peep").length).toBe(
@@ -40,14 +44,13 @@ describe("App tests", () => {
 	it("Peeps should be displayed when logged in", async () => {
 		isAuthenticated.mockReturnValue(true);
 		getAllPeeps.mockResolvedValue(testPeepsArray);
-		getUser.mockResolvedValue({
-			firstname: "Fake",
-			lastname: "User",
-			username: "fakeuser",
-		});
 		isAuthenticated.mockReturnValue(false);
 
-		render(<App />);
+		render(
+			<MemoryRouter>
+				<App />
+			</MemoryRouter>
+		);
 
 		await waitFor(() => {
 			expect(screen.getAllByTestId("single-peep").length).toBe(
@@ -59,7 +62,11 @@ describe("App tests", () => {
 	it("Should see prompt to log in to post when not logged in", async () => {
 		isAuthenticated.mockReturnValue(false);
 
-		render(<App />);
+		render(
+			<MemoryRouter>
+				<App />
+			</MemoryRouter>
+		);
 
 		await waitFor(() => {
 			expect(screen.getByText("Log in to post a Peep!")).toBeInTheDocument();
@@ -75,7 +82,11 @@ describe("App tests", () => {
 
 		isAuthenticated.mockReturnValue(true);
 
-		render(<App />);
+		render(
+			<MemoryRouter>
+				<App />
+			</MemoryRouter>
+		);
 
 		await waitFor(() => {
 			expect(screen.getByRole("textbox")).toBeInTheDocument();

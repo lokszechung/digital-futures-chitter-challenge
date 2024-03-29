@@ -1,4 +1,3 @@
-// import Peep from "../../models/peep.model.js"
 import { addPeepService } from "../../services/peepsServices/addPeep.service.js";
 
 export const addPeep = async (req, res) => {
