@@ -10,7 +10,6 @@ describe("loginUser controller test", () => {
 	beforeEach(function () {
 		req = {};
 		res = {
-			// cookie: () => res,
 			status: () => res,
 			json: () => res,
 		};
@@ -19,14 +18,11 @@ describe("loginUser controller test", () => {
 
 		statusSpy = sinon.spy(res, "status");
 
-		// cookieSpy = sinon.spy(res, "cookie");
-
 		loginUserServiceStub = sinon.stub(loginUserService, "loginUser");
 	});
 
 	afterEach(function () {
 		loginUserServiceStub.restore();
-		// cookieSpy.restore();
 		jsonSpy.restore();
 		statusSpy.restore();
 	});

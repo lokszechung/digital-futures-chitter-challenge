@@ -120,4 +120,152 @@ describe("Integration Tests on requests to the /peep route", () => {
 			expect(response.body.length).to.eql(testPeepsArray.length);
 		});
 	});
+
+	describe("PUT requests to /api/peep/:id", () => {
+		it("Should update a peep in the database", async () => {
+			const testUserId = testPeepsArray[0].author;
+			const payload = {
+				sub: testUserId,
+			};
+			const testPeepId = testPeepsArray[0]._id;
+
+			const token = jwt.sign(payload, process.env.SECRET, {
+				expiresIn: "7 days",
+			});
+
+			findByIdStub.returns(Promise.resolve({ _id: testUserId }));
+
+			const updateContent = { content: "I am an updated peep" };
+
+			const response = await request
+				.put(`${testRouteBase}/${testPeepId}`)
+				.set("Authorization", `Bearer ${token}`)
+				.send(updateContent);
+
+			expect(response).to.have.status(200);
+			expect(response.body.content).to.eql(updateContent.content);
+			expect(response.body).to.have.property("edited").to.eql(true);
+		});
+
+		it("Should return status 404 when an invalid id is provided", async () => {
+			const testUserId = testPeepsArray[0].author;
+			const payload = {
+				sub: testUserId,
+			};
+
+			const token = jwt.sign(payload, process.env.SECRET, {
+				expiresIn: "7 days",
+			});
+
+			findByIdStub.returns(Promise.resolve({ _id: testUserId }));
+
+			const updateContent = { content: "I am an updated peep" };
+
+			const response = await request
+				.put(`${testRouteBase}/no_id`)
+				.set("Authorization", `Bearer ${token}`)
+				.send(updateContent);
+
+			expect(response).to.have.status(404);
+			expect(response.text).to.eql(`{"message":"Peep not found"}`);
+		});
+
+		it("Should return status 401 when not owner of Peep", async () => {
+			const testUserId = testPeepsArray[0].author;
+			const payload = {
+				sub: testUserId,
+			};
+
+			const anotherPeepId = testPeepsArray[3]._id;
+
+			const token = jwt.sign(payload, process.env.SECRET, {
+				expiresIn: "7 days",
+			});
+
+			findByIdStub.returns(Promise.resolve({ _id: testUserId }));
+
+			const updateContent = { content: "I am an updated peep" };
+
+			const response = await request
+				.put(`${testRouteBase}/${anotherPeepId}`)
+				.set("Authorization", `Bearer ${token}`)
+				.send(updateContent);
+
+			expect(response).to.have.status(401);
+			expect(response.text).to.eql(`{"message":"Not Peep author"}`);
+		});
+	});
+
+	describe("DELETE request to /api/peep/:id", () => {
+		it("Should delete a peep from the database", async () => {
+			const testUserId = testPeepsArray[0].author;
+			const payload = {
+				sub: testUserId,
+			};
+
+			const testPeepId = testPeepsArray[0]._id;
+
+			const token = jwt.sign(payload, process.env.SECRET, {
+				expiresIn: "7 days",
+			});
+
+			findByIdStub.returns(Promise.resolve({ _id: testUserId }));
+
+			const response = await request
+				.delete(`${testRouteBase}/${testPeepId}`)
+				.set("Authorization", `Bearer ${token}`);
+
+			expect(response).to.have.status(204);
+
+			const peepsResponse = await request.get(`${testRouteBase}`);
+
+			expect(peepsResponse.body.length).to.eql(testPeepsArray.length - 1);
+		});
+
+		it("Should return status 404 when an invalid id is provided", async () => {
+			const testUserId = testPeepsArray[0].author;
+			const payload = {
+				sub: testUserId,
+			};
+
+			const testPeepId = "fake_id";
+
+			const token = jwt.sign(payload, process.env.SECRET, {
+				expiresIn: "7 days",
+			});
+
+			findByIdStub.returns(Promise.resolve({ _id: testUserId }));
+
+			const response = await request
+				.delete(`${testRouteBase}/${testPeepId}`)
+				.set("Authorization", `Bearer ${token}`);
+
+			expect(response).to.have.status(404);
+			expect(response.text).to.eql(`{"message":"Peep not found"}`);
+		});
+
+		it("Should return status 401 when not owner of Peep", async () => {
+			const testUserId = testPeepsArray[0].author;
+			const payload = {
+				sub: testUserId,
+			};
+
+			const testPeepId = testPeepsArray[3]._id;
+
+			const token = jwt.sign(payload, process.env.SECRET, {
+				expiresIn: "7 days",
+			});
+
+			findByIdStub.returns(Promise.resolve({ _id: testUserId }));
+
+			const response = await request
+				.delete(`${testRouteBase}/${testPeepId}`)
+				.set("Authorization", `Bearer ${token}`);
+
+			expect(response).to.have.status(401);
+			expect(response.text).to.eql(`{"message":"Not Peep author"}`);
+		});
+	});
+
+	// describe("")
 });

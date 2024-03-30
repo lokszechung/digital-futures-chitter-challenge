@@ -1,4 +1,5 @@
 import Peep from "../../models/peep.model.js";
+import { Unauthorised } from "../../utils/errors.js";
 
 export const deletePeepService = {
 	deletePeep: async (req) => {
@@ -7,7 +8,10 @@ export const deletePeepService = {
 		if (!peep) {
 			throw new Error("Peep not found");
 		}
-		if (peep && req.currentUser._id.equals(peep.author._id)) {
+		if (peep && req.currentUser._id.toString() !== peep.author._id.toString()) {
+			throw new Unauthorised();
+		}
+		if (peep && req.currentUser._id.toString() === peep.author._id.toString()) {
 			await Peep.deleteOne({ _id: id });
 		}
 		return;
