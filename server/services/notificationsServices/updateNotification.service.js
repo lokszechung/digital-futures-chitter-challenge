@@ -8,7 +8,7 @@ export const updateNotificationService = {
 		}
 		if (
 			notification &&
-			req.currentUser._id.equals(notification.recipient._id)
+			req.currentUser._id.toString() === notification.recipient._id.toString()
 		) {
 			Object.assign(notification, req.body);
 			await notification.save();

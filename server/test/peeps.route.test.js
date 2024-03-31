@@ -12,6 +12,7 @@ import server from "../index.js";
 import Peep from "../models/peep.model.js";
 import User from "../models/user.model.js";
 import testPeepsArray from "./data/testPeepsArray.js";
+import sendEmail from "../utils/sendEmail.js";
 
 chai.use(chaiHttp);
 
@@ -22,7 +23,7 @@ config({ path: `.env.${process.env.NODE_ENV}` });
 describe("Integration Tests on requests to the /peep route", () => {
 	const testRouteBase = "/api/peep";
 
-	let findByIdStub;
+	let findByIdStub, sendEmailStub;
 
 	beforeEach(async () => {
 		try {
@@ -33,10 +34,12 @@ describe("Integration Tests on requests to the /peep route", () => {
 		}
 
 		findByIdStub = sinon.stub(User, "findById");
+		sendEmailStub = sinon.stub(sendEmail, "send");
 	});
 
 	afterEach(function () {
 		findByIdStub.restore();
+		sendEmailStub.restore();
 	});
 
 	describe("POST requests to /api/peep", () => {
@@ -267,5 +270,117 @@ describe("Integration Tests on requests to the /peep route", () => {
 		});
 	});
 
-	// describe("")
+	describe("POST requests to /api/peep/:id", () => {
+		it("Should add a reply to Peep replies array", async () => {
+			const testUserId = testPeepsArray[0].author;
+			const payload = {
+				sub: testUserId,
+			};
+
+			const testPeepId = testPeepsArray[3]._id;
+
+			const token = jwt.sign(payload, process.env.SECRET, {
+				expiresIn: "7 days",
+			});
+
+			findByIdStub.returns(Promise.resolve({ _id: testUserId }));
+			sendEmailStub.returns(Promise.resolve({}));
+
+			const testReply = {
+				content: "This is a test reply",
+			};
+
+			const response = await request
+				.post(`${testRouteBase}/reply/${testPeepId}`)
+				.set("Authorization", `Bearer ${token}`)
+				.send(testReply);
+
+			expect(response).to.have.status(200);
+			expect(response.body.peep.replies).to.be.an("array");
+			expect(response.body.peep.replies.length).to.eql(1);
+			expect(response.body.peep.replies[0].content).to.eql(testReply.content);
+		});
+
+		it("Should return status 404 when an invalid id is provided", async () => {
+			const testUserId = testPeepsArray[0].author;
+			const payload = {
+				sub: testUserId,
+			};
+
+			const testPeepId = "fake_id";
+
+			const token = jwt.sign(payload, process.env.SECRET, {
+				expiresIn: "7 days",
+			});
+
+			findByIdStub.returns(Promise.resolve({ _id: testUserId }));
+
+			const testReply = {
+				content: "This is a test reply",
+			};
+
+			const response = await request
+				.post(`${testRouteBase}/reply/${testPeepId}`)
+				.set("Authorization", `Bearer ${token}`)
+				.send(testReply);
+
+			expect(response).to.have.status(404);
+			expect(response.text).to.eql(`{"message":"Peep not found"}`);
+		});
+
+		it("Should create a new notification when a reply is added", async () => {
+			const testUserId = testPeepsArray[0].author;
+			const payload = {
+				sub: testUserId,
+			};
+
+			const testPeepId = testPeepsArray[3]._id;
+
+			const token = jwt.sign(payload, process.env.SECRET, {
+				expiresIn: "7 days",
+			});
+
+			findByIdStub.returns(Promise.resolve({ _id: testUserId }));
+
+			const testReply = {
+				content: "This is a test reply",
+			};
+
+			const response = await request
+				.post(`${testRouteBase}/reply/${testPeepId}`)
+				.set("Authorization", `Bearer ${token}`)
+				.send(testReply);
+
+			expect(response).to.have.status(200);
+			expect(response.body.notification).to.be.an("object");
+			expect(response.body.notification).to.have.property("content");
+		});
+
+		it("Should not create a notification if author replies on their own Peep", async () => {
+			const testUserId = testPeepsArray[0].author;
+			const payload = {
+				sub: testUserId,
+			};
+
+			const testPeepId = testPeepsArray[0]._id;
+
+			const token = jwt.sign(payload, process.env.SECRET, {
+				expiresIn: "7 days",
+			});
+
+			findByIdStub.returns(Promise.resolve({ _id: testUserId }));
+
+			const testReply = {
+				content: "This is a test reply",
+			};
+
+			const response = await request
+				.post(`${testRouteBase}/reply/${testPeepId}`)
+				.set("Authorization", `Bearer ${token}`)
+				.send(testReply);
+
+			expect(response).to.have.status(200);
+			expect(response.body).to.not.have.property("notification");
+		});
+	});
 });

@@ -28,10 +28,8 @@ const peepSchema = new mongoose.Schema(
 
 peepSchema.pre("save", function (next) {
 	if (this.isModified("content") && this.isNew) {
-		console.log("no update");
 		this.edited = false;
 	} else if (this.isModified("content")) {
-		console.log("update");
 		this.edited = true;
 	}
 	next();

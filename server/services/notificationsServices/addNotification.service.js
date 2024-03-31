@@ -2,7 +2,7 @@ import Notification from "../../models/notification.model.js";
 
 export const addNotificationService = {
 	addNotification: async (req, peep) => {
-		if (req.currentUser._id.equals(peep.author._id)) {
+		if (req.currentUser._id.toString() === peep.author._id.toString()) {
 			return;
 		}
 		const notificationToAdd = await Notification.create({
