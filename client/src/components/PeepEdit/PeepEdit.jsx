@@ -36,7 +36,11 @@ const PeepEdit = ({ peep, getPeeps, setEditing }) => {
 	}
 
 	return (
-		<div className="edit-peep-container" onClick={(e) => e.stopPropagation()}>
+		<div
+			className="edit-peep-container"
+			data-testid="edit-peep"
+			onClick={(e) => e.stopPropagation()}
+		>
 			<form className="peep-form" onSubmit={handleSave}>
 				<div className="input-group">
 					<textarea

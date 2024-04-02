@@ -5,7 +5,7 @@ import { sortPeepsByTime } from "../../utils/sortByTime.js";
 
 import SinglePeep from "../SinglePeep/SinglePeep";
 import PostPeep from "../PostPeep/PostPeep";
-import LogInToAction from "../LogInToAction/LogInToAction.jsx";
+import LogInToAction from "../common/LogInToAction/LogInToAction.jsx";
 
 import "./Peeps.css";
 

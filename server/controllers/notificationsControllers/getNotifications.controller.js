@@ -1,4 +1,4 @@
-import { getNotificationsService } from "../../services/notificationsServices/getNotification.service.js";
+import { getNotificationsService } from "../../services/notificationsServices/getNotifications.service.js";
 
 export const getNotifications = async (req, res) => {
 	try {

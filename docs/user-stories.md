@@ -48,36 +48,51 @@
 
 8. **As a user, I want to be able to edit my Peep, so I can correct any mistakes I made**
 
-TODO: updatePeep controller should call updatePeepService
-TODO: updatePeep controller should call res.json and res.status with the result of updatePeepService call
-TODO: PUT request to /api/peep/:id should update Peep content and edited
-TODO: PUT request to /api/peep/:id should return status 404 when an invalid id is provided
-TODO: PUT request to /api/peep/:id should return status 401 when not owner of Peep
+- TEST: updatePeep controller should call updatePeepService
+- TEST: updatePeep controller should call res.json and res.status with the result of updatePeepService call
+- TEST: PUT request to /api/peep/:id should update a Peep in the database
+- TEST: PUT request to /api/peep/:id should return status 404 when an invalid id is provided
+- TEST: PUT request to /api/peep/:id should return status 401 when not owner of Peep
 
 9. **As a user, I want to be able to delete my Peep, so I can permanently remove a Peep from the app**
 
-TODO: deletePeep controller should call deletePeepService
-TODO: deletePeep controller should call res.json and res.status with the result of deletePeepService call
-TODO: DELETE request to /api/peep/:id should remove Peep
-TODO: DELETE request to /api/peep/:id should return status 404 when an invalid id is provided
-TODO: DELETE request to /api/peep/:id should return status 401 when not owner of Peep
+- TEST: deletePeep controller should call deletePeepService
+- TEST: deletePeep controller should call res.json and res.status with the result of deletePeepService call
+- TEST: DELETE request to /api/peep/:id should remove Peep
+- TEST: DELETE request to /api/peep/:id should return status 404 when an invalid id is provided
+- TEST: DELETE request to /api/peep/:id should return status 401 when not owner of Peep
 
 10. **As a user, I want to be able to reply to a Peep, so that I can have a conversation**
 
-TODO: addPeepReply controller should call addPeepReplyService
-TODO: addPeepReply controller should call res.json and res.status with the result of addPeepReplyService call
-TODO: POST request to /api/peep/:id should add a reply to Peep replies array
-TODO: POST request to /api/peep/:id should return status 404 when an invalid id is provided
+- TEST: addPeepReply controller should call addPeepReplyService
+- TEST: addPeepReply controller should call res.json and res.status with the result of addPeepReplyService call
+- TEST: POST request to /api/peep/:id should add a reply to Peep replies array
+- TEST: POST request to /api/peep/:id should return status 404 when an invalid id is provided
 
 11. **As a user, I want to recieve a notification, so that I can know when someone has replied to my Peep**
 
-TODO: addPeepReply controller should call addNotificationService
-TODO: POST request to /api/peep/:id should create a new notification
-TODO: GET request to /api/notification should return all notifications for a particular user
+- TEST: addPeepReply controller should call addNotificationService
+- TEST: POST request to /api/peep/:id should create a new notification
+- TEST: POST request to /api/peep/:id should not create a notification if author replies on their own Peep
+- TEST: GET request to /api/notification should return all notifications for a particular user
 
 12. **As a user, I want to recieve an email when someone replies to my Peep, so I can stay updated even when away from the app**
 
-TODO: addPeepReply controller should call sendEmail
+- TEST: addPeepReply controller should call sendEmail
+
+13. **As a user, I want to see all of my notifications, so I can see who has replied to me before**
+
+- TEST: getNotifications controller should call getNotificationsService
+- TEST: getNotifications controller should res.json and res.status with the result of getNotificationsService call
+
+14. **As a user, I want to be able to mark my notifications as read, so I know which notifications I have checked**
+
+- TEST: PUT request to /api/notification/:id should change unread to false
+
+15. **As a user, I want to be able to see a single Peep, so I can see its replies**
+
+- TEST: GET request to /api/peep/:id should return a Peep
+- TEST: Should return status 404 when an invalid id is provided
 
 ## Frontend:
 
@@ -124,6 +139,36 @@ TODO: addPeepReply controller should call sendEmail
 
 8. **As a user, I want to UI to be responsive across all devices, so that I can easily use it on any device**
 
+9. **As a user, I want to be able to delete a Peep I made, so that no one sees it**
+
+- TEST: deletePeep should delete a Peep
+- TEST: Should be able to see Delete Peep if logged in
+
+10. **As a user, I want to be able to edit a Peep I made, so that I can correct mistakes**
+
+- TEST: updatePeep should update a Peep
+- TEST: Should be able to see Edit Peep if logged in
+- TEST: Should show Peep Edit component when Edit Peep is clicked
+
+11. **As a user, I want to be able to reply to a Peep, so that I can create conversation**
+
+- TEST: replyPeep should reply to a Peep
+- TEST: Should be able to reply to a peep when logged in
+
+12. **As a user, I want to recieve a notification, so that I can know when someone has replied to my Peep**
+
+- TEST: getNotifications should get all notifications for a certain user
+- TEST: Should show number of unread notifications
+
+13. **As a user, I want to see all my notifications, so I can check them at any time**
+
+- TEST: Should display all notifications
+
+14. **As a user, I want to mark a notifications as read, so I know which notifications I have checked**
+
+- TEST: updateNotification should update a notification
+- TEST: should call updateNotification when notification is clicked
+
 ## Component Hierachy, State/Data Flow Diagram
 
 ![Component Hierachy](./images/chitter-component-hierachy.png)
@@ -147,7 +192,7 @@ TODO: addPeepReply controller should call sendEmail
 
 ```javascript
 {
-	content: { type: String, required: true, maxlength: 420 },
+	content: { type: String, required: true, maxlength: 300 },
 	author: { type: String, required: true },
 	createdAt: { type: Date, required: true}
 }

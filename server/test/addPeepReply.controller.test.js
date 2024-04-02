@@ -59,6 +59,7 @@ describe("addPeepReply controller test", () => {
 	});
 
 	it("Should call sendEmail", async () => {
+		addNotificationServiceStub.returns(Promise.resolve({ notification: true }));
 		sendEmailStub.returns(Promise.resolve([]));
 
 		await addPeepReply(req, res);

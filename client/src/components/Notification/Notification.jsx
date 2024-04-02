@@ -33,6 +33,7 @@ const Notification = ({ notification, getNotifs }) => {
 	return (
 		<div
 			className={`notification-container ${unread ? `unread` : ""}`}
+			data-testid="single-notification"
 			onClick={handleClick}
 		>
 			<p className="notif-sender m-0">

@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import "./ReplyPeep.css";
-import Avatar from "../Avatar/Avatar";
+import Avatar from "../common/Avatar/Avatar";
 import { replyPeep } from "../../utils/services.js";
 
 const ReplyPeep = ({ id, name, getPeep }) => {
@@ -16,6 +16,7 @@ const ReplyPeep = ({ id, name, getPeep }) => {
 
 	const handleReply = async (e) => {
 		e.preventDefault();
+		console.log("Replying to peep...");
 		try {
 			await replyPeep(id, content);
 			contentRef.current.value = "";

@@ -1,9 +1,8 @@
 import "./MainPeep.css";
 import { useState, useEffect } from "react";
 
-import { getUser } from "../../utils/services.js";
 import { isAuthenticated, getPayload } from "../../utils/auth.js";
-import Avatar from "../Avatar/Avatar";
+import Avatar from "../common/Avatar/Avatar";
 
 import formatDateTime from "../../utils/formatDateTime.js";
 
@@ -11,7 +10,7 @@ import DeletePeepModal from "../DeletePeepModal/DeletePeepModal";
 import PeepEdit from "../PeepEdit/PeepEdit";
 import { useNavigate } from "react-router-dom";
 
-const MainPeep = ({ peep, getPeep, loading }) => {
+const MainPeep = ({ peep, getPeep }) => {
 	const { _id: id, author, content, createdAt, replies, edited } = peep;
 
 	const navigate = useNavigate();

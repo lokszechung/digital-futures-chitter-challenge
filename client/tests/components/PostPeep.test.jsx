@@ -40,7 +40,7 @@ describe("PostPeep tests", () => {
 		const peepContent = " ";
 
 		act(() => {
-			userEvent.type(screen.getByRole("textbox"), " ");
+			userEvent.type(screen.getByRole("textbox"), peepContent);
 			userEvent.click(screen.getByRole("button"));
 		});
 

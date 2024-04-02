@@ -2,7 +2,7 @@ import "./PostPeep.css";
 
 import { useEffect, useState, useRef } from "react";
 
-import Avatar from "../Avatar/Avatar.jsx";
+import Avatar from "../common/Avatar/Avatar.jsx";
 import { postPeep } from "../../utils/services.js";
 
 const PostPeep = ({ name, getPeeps }) => {

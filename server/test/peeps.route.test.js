@@ -383,4 +383,22 @@ describe("Integration Tests on requests to the /peep route", () => {
 			expect(response.body).to.not.have.property("notification");
 		});
 	});
+
+	describe("GET requests to /api/peep/:id", () => {
+		it("Should return a single peep", async () => {
+			const testPeep = testPeepsArray[0];
+
+			const response = await request.get(`${testRouteBase}/${testPeep._id}`);
+
+			expect(response).to.have.status(200);
+			expect(response.body.content).to.eql(testPeep.content);
+		});
+
+		it("Should return status 404 when an invalid id is provided", async () => {
+			const response = await request.get(`${testRouteBase}/fake_id`);
+
+			expect(response).to.have.status(404);
+			expect(response.text).to.eql(`{"message":"Peep not found"}`);
+		});
+	});
 });

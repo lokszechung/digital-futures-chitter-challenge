@@ -1,6 +1,6 @@
 import "./Avatar.css";
 import { useEffect, useState } from "react";
-import findAvatarColour from "../../utils/findAvatarColour.js";
+import findAvatarColour from "../../../utils/findAvatarColour.js";
 
 const Avatar = ({ id, firstname, lastname }) => {
 	const [avColour, setAvColour] = useState("");

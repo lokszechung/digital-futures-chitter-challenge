@@ -1,9 +1,7 @@
 import Navatar from "./Navatar/Navatar";
-import SignInButton from "../SignInButton/SignInButton";
-import SignInModal from "../SignInModal/SignInModal";
+import SignInButton from "./SignInButton/SignInButton";
+import SignInModal from "./SignInModal/SignInModal";
 import NotifBell from "./NotifBell/NotifBell";
-
-// import { isAuthenticated } from "../../utils/auth";
 
 import "./Navbar.css";
 

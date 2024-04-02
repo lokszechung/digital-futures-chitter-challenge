@@ -27,6 +27,7 @@ const NotifBell = () => {
 	};
 
 	useEffect(() => {
+		getNotifs();
 		const interval = setInterval(() => {
 			getNotifs();
 		}, 5500);
@@ -52,22 +53,13 @@ const NotifBell = () => {
 						></path>
 					</g>
 				</svg>
-				<div>
-					{unread > 0 && (
-						<div className="unread-circle">
-							<span>{unread}</span>
-						</div>
-					)}
-				</div>
+				{unread > 0 && (
+					<div className="unread-circle" data-testid="unread-circle">
+						<span>{unread}</span>
+					</div>
+				)}
 			</div>
 			<ul className="dropdown-menu dropdown-menu-end notif-dropdown">
-				{/* {loading ? (
-					<div className="notif-container">
-						<div className="spinner-border my-5" role="status">
-							<span className="visually-hidden">Loading...</span>
-						</div>
-					</div>
-				) : ( */}
 				{notifications.map((notification) => {
 					return (
 						<li key={notification._id}>
@@ -75,7 +67,6 @@ const NotifBell = () => {
 						</li>
 					);
 				})}
-				{/* )} */}
 			</ul>
 		</div>
 	);

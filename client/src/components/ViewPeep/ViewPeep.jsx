@@ -8,9 +8,9 @@ import { getSinglePeep } from "../../utils/services";
 
 import MainPeep from "../MainPeep/MainPeep";
 import PeepReplies from "../PeepReplies/PeepReplies";
-import LogInToAction from "../LogInToAction/LogInToAction";
+import LogInToAction from "../common/LogInToAction/LogInToAction";
 import ReplyPeep from "../ReplyPeep/ReplyPeep";
-import BackButton from "../BackButton/BackButton.jsx";
+import BackButton from "../common/BackButton/BackButton";
 
 const ViewPeep = ({ id, name }) => {
 	const [peep, setPeep] = useState();

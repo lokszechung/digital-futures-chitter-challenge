@@ -1,6 +1,6 @@
 import "./Navatar.css";
 
-import Avatar from "../../Avatar/Avatar";
+import Avatar from "../../common/Avatar/Avatar";
 import { handleLogOut, isAuthenticated } from "../../../utils/auth.js";
 
 const Navatar = ({ name, setAuthenticated }) => {

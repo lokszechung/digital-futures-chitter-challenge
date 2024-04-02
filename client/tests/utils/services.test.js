@@ -5,6 +5,12 @@ import {
 	logIn,
 	signUp,
 	getUser,
+	deletePeep,
+	updatePeep,
+	getSinglePeep,
+	replyPeep,
+	getNotifications,
+	updateNotification,
 } from "../../src/utils/services";
 import testPeepsArray from "../data/testPeepsArray";
 import testUsersArray from "../data/testUsersArray";
@@ -80,5 +86,102 @@ describe("Services tests", () => {
 			`http://localhost:4000/api/user/${testId}`
 		);
 		expect(response).toEqual(testUsersArray[0]);
+	});
+
+	it("deletePeep should delete a peep", async () => {
+		const testId = "6600268fc250b55c639dbf7d";
+		vi.spyOn(axios, "delete").mockResolvedValue({});
+
+		await deletePeep(testId);
+
+		expect(axios.delete).toHaveBeenCalledWith(
+			"http://localhost:4000/api/peep/6600268fc250b55c639dbf7d",
+			{
+				headers: {
+					Authorization: "Bearer null",
+				},
+			}
+		);
+	});
+
+	it("updatePeep should edit a peep", async () => {
+		const testId = "6600268fc250b55c639dbf7d";
+		vi.spyOn(axios, "put").mockResolvedValue({});
+
+		const testContent = "A peep updated";
+
+		await updatePeep(testId, testContent);
+
+		expect(axios.put).toHaveBeenCalledWith(
+			"http://localhost:4000/api/peep/6600268fc250b55c639dbf7d",
+			{ content: testContent },
+			{
+				headers: {
+					Authorization: "Bearer null",
+				},
+			}
+		);
+	});
+
+	it("getSinglePeeps should return a Peep", async () => {
+		vi.spyOn(axios, "get").mockResolvedValue({ data: testPeepsArray[0] });
+
+		const testId = "anyID";
+
+		const response = await getSinglePeep(testId);
+
+		expect(axios.get).toHaveBeenCalledWith(
+			`http://localhost:4000/api/peep/${testId}`
+		);
+		expect(response).toEqual(testPeepsArray[0]);
+	});
+
+	it("replyPeep should reply to a Peep", async () => {
+		const testId = "6600268fc250b55c639dbf7d";
+		const testContent = "A peep reply";
+
+		vi.spyOn(axios, "post").mockResolvedValue({});
+
+		await replyPeep(testId, testContent);
+
+		expect(axios.post).toHaveBeenCalledWith(
+			`http://localhost:4000/api/peep/reply/${testId}`,
+			{ content: testContent },
+			{
+				headers: {
+					Authorization: "Bearer null",
+				},
+			}
+		);
+	});
+
+	it("getNotifications should return notifications", async () => {
+		vi.spyOn(axios, "get").mockResolvedValue({ data: [] });
+
+		await getNotifications();
+
+		expect(axios.get).toHaveBeenCalledWith(
+			"http://localhost:4000/api/notification",
+			{
+				headers: {
+					Authorization: "Bearer null",
+				},
+			}
+		);
+	});
+
+	it("updateNotification should update a notification", async () => {
+		const testId = "6600268fc250b55c639dbf7d";
+		vi.spyOn(axios, "put").mockResolvedValue({});
+		await updateNotification(testId);
+		expect(axios.put).toHaveBeenCalledWith(
+			`http://localhost:4000/api/notification/${testId}`,
+			{ unread: false },
+			{
+				headers: {
+					Authorization: "Bearer null",
+				},
+			}
+		);
 	});
 });

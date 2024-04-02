@@ -9,7 +9,7 @@ export const addPeepReply = async (req, res) => {
 			req,
 			peep
 		);
-		await sendEmail.send({ peep, notification });
+		if (notification) await sendEmail.send({ peep, notification });
 		return res.status(200).json({ peep, notification });
 	} catch (err) {
 		if (err.kind === "ObjectId") {

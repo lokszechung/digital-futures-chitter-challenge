@@ -1,6 +1,6 @@
 import "./SingleReply.css";
 
-import Avatar from "../Avatar/Avatar";
+import Avatar from "../common/Avatar/Avatar";
 import formatDateTime from "../../utils/formatDateTime";
 
 const SingleReply = ({ reply }) => {

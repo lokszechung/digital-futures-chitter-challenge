@@ -1,6 +1,5 @@
 import { render, screen, waitFor, act } from "@testing-library/react";
 
-import { setToken, isAuthenticated } from "../../src/utils/auth.js";
 import userEvent from "@testing-library/user-event";
 
 import Navbar from "../../src/components/Navbar/Navbar";

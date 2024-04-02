@@ -3,7 +3,7 @@ import { getUser } from "../../utils/services.js";
 import { useNavigate } from "react-router-dom";
 
 import formatDateTime from "../../utils/formatDateTime.js";
-import Avatar from "../Avatar/Avatar";
+import Avatar from "../common/Avatar/Avatar";
 
 import "./SinglePeep.css";
 import { getPayload, isAuthenticated } from "../../utils/auth.js";
