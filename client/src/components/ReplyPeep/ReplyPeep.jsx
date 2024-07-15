@@ -16,7 +16,6 @@ const ReplyPeep = ({ id, name, getPeep }) => {
 
 	const handleReply = async (e) => {
 		e.preventDefault();
-		console.log("Replying to peep...");
 		try {
 			await replyPeep(id, content);
 			contentRef.current.value = "";

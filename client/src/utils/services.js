@@ -2,6 +2,30 @@ import axios from "axios";
 
 import { getToken } from "./auth";
 
+export const logIn = async (formFields) => {
+	try {
+		const { data } = await axios.post(
+			"http://localhost:4000/api/user/login",
+			formFields
+		);
+		return data;
+	} catch (error) {
+		throw error;
+	}
+};
+
+export const signUp = async (formFields) => {
+	try {
+		const { data } = await axios.post(
+			"http://localhost:4000/api/user/register",
+			formFields
+		);
+		return data;
+	} catch (error) {
+		throw error;
+	}
+};
+
 export const getAllPeeps = async () => {
 	try {
 		const { data } = await axios.get("http://localhost:4000/api/peep");
@@ -24,30 +48,6 @@ export const postPeep = async (content) => {
 				},
 			}
 		);
-	} catch (error) {
-		throw error;
-	}
-};
-
-export const logIn = async (formFields) => {
-	try {
-		const { data } = await axios.post(
-			"http://localhost:4000/api/user/login",
-			formFields
-		);
-		return data;
-	} catch (error) {
-		throw error;
-	}
-};
-
-export const signUp = async (formFields) => {
-	try {
-		const { data } = await axios.post(
-			"http://localhost:4000/api/user/register",
-			formFields
-		);
-		return data;
 	} catch (error) {
 		throw error;
 	}

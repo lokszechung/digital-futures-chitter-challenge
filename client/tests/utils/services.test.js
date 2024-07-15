@@ -18,27 +18,6 @@ import testUsersArray from "../data/testUsersArray";
 vi.mock("axios");
 
 describe("Services tests", () => {
-	it("getAllPeeps should return all peeps", async () => {
-		vi.spyOn(axios, "get").mockResolvedValue({ data: testPeepsArray });
-		const response = await getAllPeeps();
-		expect(axios.get).toHaveBeenCalledWith("http://localhost:4000/api/peep");
-		expect(response).toEqual(testPeepsArray);
-	});
-
-	it("postPeep should post a Peep", async () => {
-		vi.spyOn(axios, "post").mockResolvedValue();
-		await postPeep("A peep");
-		expect(axios.post).toHaveBeenCalledWith(
-			"http://localhost:4000/api/peep",
-			{ content: "A peep" },
-			{
-				headers: {
-					Authorization: "Bearer null",
-				},
-			}
-		);
-	});
-
 	it("logIn should return a user and token", async () => {
 		vi.spyOn(axios, "post").mockResolvedValue({
 			data: { user: testUsersArray[0], token: "token" },
@@ -75,6 +54,27 @@ describe("Services tests", () => {
 			testUser
 		);
 		expect(response).toEqual({ user: testUser, token: "token" });
+	});
+
+	it("getAllPeeps should return all peeps", async () => {
+		vi.spyOn(axios, "get").mockResolvedValue({ data: testPeepsArray });
+		const response = await getAllPeeps();
+		expect(axios.get).toHaveBeenCalledWith("http://localhost:4000/api/peep");
+		expect(response).toEqual(testPeepsArray);
+	});
+
+	it("postPeep should post a Peep", async () => {
+		vi.spyOn(axios, "post").mockResolvedValue();
+		await postPeep("A peep");
+		expect(axios.post).toHaveBeenCalledWith(
+			"http://localhost:4000/api/peep",
+			{ content: "A peep" },
+			{
+				headers: {
+					Authorization: "Bearer null",
+				},
+			}
+		);
 	});
 
 	it("getUser should return a user", async () => {

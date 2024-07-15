@@ -28,9 +28,6 @@ const sendEmail = {
 					notification.content
 				}<br><br>at ${formatDateTime(notification.createdAt)}`,
 			});
-
-			// console.log("Email sent to: %s", info.messageId);
-			console.log(info);
 		} catch (error) {
 			console.error(error);
 		}

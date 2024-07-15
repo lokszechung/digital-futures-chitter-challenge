@@ -23,7 +23,6 @@ const SignUpForm = ({ handleCloseModal, setAuthenticated }) => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			// console.log("CLICKEDDDDD");
 			const response = await signUp(formFields);
 			setToken(response.token);
 			handleCloseModal();
@@ -31,7 +30,6 @@ const SignUpForm = ({ handleCloseModal, setAuthenticated }) => {
 				setAuthenticated(isAuthenticated());
 			}, 300);
 		} catch (error) {
-			// console.error(error);
 			setError(error.response.data.message);
 		}
 	};

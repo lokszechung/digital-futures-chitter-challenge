@@ -17,7 +17,6 @@ const Peeps = ({ name }) => {
 		try {
 			setLoading(true);
 			const response = await getAllPeeps();
-			console.log(response);
 			setPeeps(sortPeepsByTime(response));
 		} catch (error) {
 			console.error(error);

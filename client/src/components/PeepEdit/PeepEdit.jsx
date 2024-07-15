@@ -21,8 +21,7 @@ const PeepEdit = ({ peep, getPeeps, setEditing }) => {
 	const handleSave = async (e) => {
 		e.preventDefault();
 		try {
-			const response = await updatePeep(peep._id, content);
-			console.log("edit response: ", response);
+			await updatePeep(peep._id, content);
 			setEditing(false);
 			getPeeps();
 		} catch (error) {

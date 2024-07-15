@@ -24,7 +24,6 @@ const Notification = ({ notification, getNotifs }) => {
 	};
 
 	const handleClick = async () => {
-		console.log("notification clicked");
 		navigate(`/peep/${peepId}`);
 		await unreadToFalse();
 		getNotifs();

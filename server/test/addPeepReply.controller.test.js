@@ -81,7 +81,6 @@ describe("addPeepReply controller test", () => {
 
 		await addPeepReply(req, res);
 
-		// console.log(response.status);
 		expect(jsonSpy.calledOnceWith({ peep: testPeep, notification: {} })).to.be
 			.true;
 		expect(statusSpy.calledOnceWith(200)).to.be.true;
